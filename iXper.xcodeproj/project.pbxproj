@@ -15,6 +15,9 @@
 		D68EBA4C22E4DFEB009616FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D68EBA4A22E4DFEB009616FD /* LaunchScreen.storyboard */; };
 		D68EBA5722E4DFEB009616FD /* iXperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68EBA5622E4DFEB009616FD /* iXperTests.swift */; };
 		D68EBA6222E4DFEB009616FD /* iXperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68EBA6122E4DFEB009616FD /* iXperUITests.swift */; };
+		D68EBA7822E5987F009616FD /* MuseoSans_500.otf in Resources */ = {isa = PBXBuildFile; fileRef = D68EBA7622E5987F009616FD /* MuseoSans_500.otf */; };
+		D68EBA7922E5987F009616FD /* MuseoSans_500_Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = D68EBA7722E5987F009616FD /* MuseoSans_500_Italic.otf */; };
+		D68EBA7C22E59D62009616FD /* AuthVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68EBA7B22E59D62009616FD /* AuthVc.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		D68EBA5D22E4DFEB009616FD /* iXperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iXperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D68EBA6122E4DFEB009616FD /* iXperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iXperUITests.swift; sourceTree = "<group>"; };
 		D68EBA6322E4DFEB009616FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D68EBA7622E5987F009616FD /* MuseoSans_500.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MuseoSans_500.otf; sourceTree = "<group>"; };
+		D68EBA7722E5987F009616FD /* MuseoSans_500_Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MuseoSans_500_Italic.otf; sourceTree = "<group>"; };
+		D68EBA7B22E59D62009616FD /* AuthVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVc.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +105,17 @@
 		D68EBA3E22E4DFEB009616FD /* iXper */ = {
 			isa = PBXGroup;
 			children = (
+				D68EBA7122E58EDB009616FD /* Model */,
+				D68EBA7422E58EEF009616FD /* View */,
+				D68EBA7522E58F03009616FD /* Controller */,
+				D68EBA7022E58DB1009616FD /* Extensions */,
+				D68EBA6F22E58D8E009616FD /* Services */,
 				D68EBA3F22E4DFEB009616FD /* AppDelegate.swift */,
-				D68EBA4122E4DFEB009616FD /* FirstViewController.swift */,
-				D68EBA4322E4DFEB009616FD /* SecondViewController.swift */,
 				D68EBA4522E4DFEB009616FD /* Main.storyboard */,
 				D68EBA4822E4DFEB009616FD /* Assets.xcassets */,
 				D68EBA4A22E4DFEB009616FD /* LaunchScreen.storyboard */,
 				D68EBA4D22E4DFEB009616FD /* Info.plist */,
+				D68EBA7A22E59886009616FD /* Fonts */,
 			);
 			path = iXper;
 			sourceTree = "<group>";
@@ -126,6 +136,53 @@
 				D68EBA6322E4DFEB009616FD /* Info.plist */,
 			);
 			path = iXperUITests;
+			sourceTree = "<group>";
+		};
+		D68EBA6F22E58D8E009616FD /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D68EBA7022E58DB1009616FD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D68EBA7122E58EDB009616FD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D68EBA7422E58EEF009616FD /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D68EBA7522E58F03009616FD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D68EBA4122E4DFEB009616FD /* FirstViewController.swift */,
+				D68EBA4322E4DFEB009616FD /* SecondViewController.swift */,
+				D68EBA7B22E59D62009616FD /* AuthVc.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D68EBA7A22E59886009616FD /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D68EBA7722E5987F009616FD /* MuseoSans_500_Italic.otf */,
+				D68EBA7622E5987F009616FD /* MuseoSans_500.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +290,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D68EBA4C22E4DFEB009616FD /* LaunchScreen.storyboard in Resources */,
+				D68EBA7922E5987F009616FD /* MuseoSans_500_Italic.otf in Resources */,
 				D68EBA4922E4DFEB009616FD /* Assets.xcassets in Resources */,
+				D68EBA7822E5987F009616FD /* MuseoSans_500.otf in Resources */,
 				D68EBA4722E4DFEB009616FD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +320,7 @@
 			files = (
 				D68EBA4422E4DFEB009616FD /* SecondViewController.swift in Sources */,
 				D68EBA4022E4DFEB009616FD /* AppDelegate.swift in Sources */,
+				D68EBA7C22E59D62009616FD /* AuthVc.swift in Sources */,
 				D68EBA4222E4DFEB009616FD /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
