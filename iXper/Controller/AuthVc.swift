@@ -7,22 +7,25 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
-class AuthVc: UIViewController {
+class AuthVc: UIViewController, GIDSignInUIDelegate {
 
-    @IBOutlet weak var usernameField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        GIDSignIn.sharedInstance().uiDelegate = self
+    
 
     }
     
-
-    @IBAction func loginBtnPressed(_ sender: Any) {
+    @IBAction func emailSignInBtn(_ sender: Any) {
+        let emailVc = storyboard?.instantiateViewController(withIdentifier: "EmailVc")
+        present(emailVc!, animated: true, completion: nil)
     }
     
-    @IBAction func createAccBtnPressed(_ sender: Any) {
-    }
+   
+   
 }
