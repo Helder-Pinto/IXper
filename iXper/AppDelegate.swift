@@ -46,8 +46,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 if let error = error {
                     print(error)
                 } else {
+                    
+                    let userData = ["email" : authResult?.user.email] //if theres a user we get the provider(google hotmail etc) and the email
+                    DataService.instance.createDBUser(uid: (authResult?.user.uid)!, userData: userData as Dictionary<String, Any>)
                     print(authResult?.user.email as Any)
                     print(authResult?.user.displayName as Any)
+                    
                 }
             }
       }
@@ -59,8 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url,
-                                                 sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+        return GIDSignIn.sharedInstance().handle(url,sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
                                                  annotation: [:])
     }
 
