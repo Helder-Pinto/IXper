@@ -8,9 +8,10 @@
 
 import UIKit
 import Firebase
+import FirebaseUI
 import GoogleSignIn
 
-class AuthVc: UIViewController, GIDSignInUIDelegate {
+class AuthVc: UIViewController, GIDSignInUIDelegate, FUIAuthDelegate {
 
     
     override func viewDidLoad() {
@@ -19,6 +20,15 @@ class AuthVc: UIViewController, GIDSignInUIDelegate {
         GIDSignIn.sharedInstance().uiDelegate = self
     
 
+        let authUI = FUIAuth.defaultAuthUI()
+        // You need to adopt a FUIAuthDelegate protocol to receive callback
+        authUI?.delegate = self
+        
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if user != nil {
+                self.performSegue(withIdentifier: "homeScreen", sender: Any?.self)
+            }
+        }
     }
     
     @IBAction func emailSignInBtn(_ sender: Any) {
@@ -26,6 +36,12 @@ class AuthVc: UIViewController, GIDSignInUIDelegate {
         present(emailVc!, animated: true, completion: nil)
     }
     
-   
-   
+    
+    
+    @IBAction func logoutBtn(_ sender: Any) {
+        AuthService.instance.logoutUser()
+        
+    }
+    
+    
 }

@@ -31,6 +31,23 @@ class DataService{
         REF_USERS.child(uid).updateChildValues(userData)
     }
     
+    func getUserData(forUid uid: String, handler: @escaping (_ user: User ) -> Void) {
+        
+        REF_USERS.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let fullname = value?["fullname"] as? String ?? ""
+            let position = value?["position"] as? String ?? ""
+            let user = User(fullname: fullname, position: position)
+           
+            handler(user)
+            
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+    }
     
     
 }

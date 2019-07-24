@@ -39,5 +39,20 @@ class AuthService{
             loginCompleted(true, nil)
         }
     }
+    
+   
+    
+    func logoutUser(){
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            print("signed out")
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+    }
+    
+    
+    
    
 }

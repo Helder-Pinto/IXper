@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         } else {
         
         guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
             Auth.auth().signIn(with: credential) { (authResult, error) in
                 if let error = error {
                     print(error)
@@ -49,12 +49,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                     
                     let userData = ["email" : authResult?.user.email] //if theres a user we get the provider(google hotmail etc) and the email
                     DataService.instance.createDBUser(uid: (authResult?.user.uid)!, userData: userData as Dictionary<String, Any>)
+                   
                     print(authResult?.user.email as Any)
                     print(authResult?.user.displayName as Any)
                     
                 }
             }
-      }
+        }
     }
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         // Perform any operations when the user disconnects from app here.

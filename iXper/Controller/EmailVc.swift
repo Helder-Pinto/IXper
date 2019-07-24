@@ -19,7 +19,7 @@ class EmailVc: UIViewController {
     }
     
 
-    @IBAction func loginBtn(_ sender: Any) {
+    @IBAction func login(_ sender: Any) {
         if emailField.text != nil && passwordField.text != nil {
             AuthService.instance.loginUser(withEmail: emailField.text!, andPassword: passwordField.text!) { (success, loginError) in
                 if success {
