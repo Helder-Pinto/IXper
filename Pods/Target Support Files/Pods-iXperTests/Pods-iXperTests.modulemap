@@ -1,0 +1,6 @@
+framework module Pods_iXperTests {
+  umbrella header "Pods-iXperTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module Pods_iXperUITests {
+  umbrella header "Pods-iXperUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
