@@ -8,6 +8,7 @@
 
 import UIKit
 
+@IBDesignable
 class ShadowView: UIView {
 
     override func prepareForInterfaceBuilder() {

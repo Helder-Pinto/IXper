@@ -8,40 +8,34 @@
 
 import UIKit
 import Firebase
-import FirebaseUI
+
 import GoogleSignIn
 
-class AuthVc: UIViewController, GIDSignInUIDelegate, FUIAuthDelegate {
+class AuthVc: UIViewController, GIDSignInUIDelegate {
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         GIDSignIn.sharedInstance().uiDelegate = self
-    
-
-        let authUI = FUIAuth.defaultAuthUI()
-        // You need to adopt a FUIAuthDelegate protocol to receive callback
-        authUI?.delegate = self
         
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if user != nil {
                 self.performSegue(withIdentifier: "homeScreen", sender: Any?.self)
+                
+                
             }
         }
     }
     
     @IBAction func emailSignInBtn(_ sender: Any) {
         let emailVc = storyboard?.instantiateViewController(withIdentifier: "EmailVc")
-        present(emailVc!, animated: true, completion: nil)
+                      present(emailVc!, animated: true, completion: nil)
     }
     
     
+
     
-    @IBAction func logoutBtn(_ sender: Any) {
-        AuthService.instance.logoutUser()
-        
-    }
-    
-    
+   
 }

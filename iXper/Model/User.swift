@@ -11,19 +11,25 @@ import Foundation
 
 class User{
     
-    private var _fullname: String
-    private var _position: String
+    private var fullName: String
+    private var jobPosition: String
+    private var photoUrl: String
     
     var fullname: String{
-        return _fullname
+        return fullName
     }
     var position: String{
         
-        return _position
+        return jobPosition
     }
     
-    init(fullname: String, position: String){
-        self._fullname = fullname
-        self._position = position
+    var picUrl: String {
+        return photoUrl
+    }
+    
+    init(fullname: String, position: String, picUrl: String){
+        self.fullName = fullname
+        self.jobPosition = position
+        self.photoUrl = picUrl
     }
 }

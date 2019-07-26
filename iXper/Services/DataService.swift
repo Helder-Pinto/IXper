@@ -38,7 +38,8 @@ class DataService{
             let value = snapshot.value as? NSDictionary
             let fullname = value?["fullname"] as? String ?? ""
             let position = value?["position"] as? String ?? ""
-            let user = User(fullname: fullname, position: position)
+            let photoUrl = value?["photoUrl"] as? String ?? ""
+            let user = User(fullname: fullname, position: position, picUrl: photoUrl)
            
             handler(user)
             
