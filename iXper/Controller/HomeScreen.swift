@@ -9,8 +9,6 @@
 import UIKit
 import Firebase
 
-
-
 class HomeScreen: UIViewController {
     
     @IBOutlet weak var profilePicture: UIImageView!
@@ -22,20 +20,16 @@ class HomeScreen: UIViewController {
     @IBOutlet weak var clockInBtn: ShadowBtn!
    
     
-    let watch = DateTime()
+    let dateTime = DateTime()
     var toggle = true
     let formatter = DateFormatter()
     
-    var dayOfTheWeek: String?
-    var currentMonth: String?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
         
+        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
         self.showSpinner(onView: self.view)
-        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true) 
-        
+       
         // user data to the homescreen
         DataService.instance.getUserData(forUid: Auth.auth().currentUser!.uid) { (user) in
             self.userName.text = user.fullname
@@ -65,9 +59,6 @@ class HomeScreen: UIViewController {
             }
             
         }
-        
-    
-
     }
     
     @objc func updateTime(){
@@ -89,65 +80,11 @@ class HomeScreen: UIViewController {
             actualTime.text = "\(hour):\(minutes)"
         }
         
-        switch weekday{
-        case 1:
-            dayOfTheWeek = "Sunday"
-        case 2:
-            dayOfTheWeek = "Monday"
-        case 3:
-            dayOfTheWeek = "Tuesday"
-        case 4:
-            dayOfTheWeek = "Wednesday"
-        case 5:
-            dayOfTheWeek = "Thursday"
-        case 6:
-            dayOfTheWeek = "Friday"
-        case 7:
-            dayOfTheWeek = "Saturday"
-        default:
-            break
-            
-        }
-        
-        switch month {
-        case 1:
-            currentMonth = "January"
-        case 2:
-            currentMonth = "February"
-        case 3:
-            currentMonth = "March"
-        case 4:
-            currentMonth = "April"
-        case 5:
-            currentMonth = "May"
-        case 6:
-            currentMonth = "June"
-        case 7:
-            currentMonth = "July"
-        case 8:
-            currentMonth = "August"
-        case 9:
-            currentMonth = "September"
-        case 10:
-            currentMonth = "October"
-        case 11:
-            currentMonth = "November"
-        case 12:
-            currentMonth = "December"
-        default:
-            break
-        }
-        
-        if let dayofTheWeek = dayOfTheWeek, let currentMonth = currentMonth {
-            todaysDate.text = dayofTheWeek + ", \(currentMonth) \(day)"
-        }
-        
-        
+        let currentMonth = dateTime.actualMonth(month: month)
+        let currentDayOfTheWeek = dateTime.dayOfTheWeek(weekday: weekday)
+        todaysDate.text =  currentDayOfTheWeek + ", \(currentMonth) \(day)"
     }
     
-    
-
-
     @IBAction func logOutBtn(_ sender: Any) {
         
         AuthService.instance.logoutUser()
@@ -158,9 +95,8 @@ class HomeScreen: UIViewController {
     @IBAction func clockInAndPause(_ sender: Any) {
         
         if toggle {
-            
             Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateElapsedTime), userInfo: nil, repeats: true)
-            watch.start()
+            dateTime.start()
             clockInBtn.backgroundColor = #colorLiteral(red: 1, green: 0.8135027289, blue: 0, alpha: 1)
             clockInBtn.setTitle("Pause", for: .normal)
             toggle = false
@@ -175,7 +111,7 @@ class HomeScreen: UIViewController {
     
     
     @IBAction func clockOut(_ sender: Any) {
-        watch.stop()
+        dateTime.stop()
         
     }
     
@@ -184,8 +120,8 @@ class HomeScreen: UIViewController {
     @objc func updateElapsedTime(timer: Timer) {
          formatter.dateFormat = "mm:ss:SS"
         
-        if watch.isRunning {
-            elapsedTime.text = formatter.string(from: Date(timeIntervalSince1970: watch.elapsedTime))
+        if dateTime.isRunning {
+            elapsedTime.text = formatter.string(from: Date(timeIntervalSince1970: dateTime.elapsedTime))
         }
         else {
             timer.invalidate()

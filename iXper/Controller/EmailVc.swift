@@ -23,8 +23,7 @@ class EmailVc: UIViewController {
         if emailField.text != nil && passwordField.text != nil {
             AuthService.instance.loginUser(withEmail: emailField.text!, andPassword: passwordField.text!) { (success, loginError) in
                 if success {
-                   let homeScreen = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreen")
-                   self.present(homeScreen!, animated: true, completion: nil)
+                   self.performSegue(withIdentifier: "tohomeScreen", sender: Any?.self)
                 } else {
                     print(String(describing: loginError?.localizedDescription))
                     

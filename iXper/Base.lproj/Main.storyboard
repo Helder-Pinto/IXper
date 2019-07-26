@@ -361,7 +361,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sign in with Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L5z-H4-Qof">
                                 <rect key="frame" x="93" y="235" width="229" height="53"/>
@@ -401,11 +401,12 @@
                     <connections>
                         <outlet property="emailField" destination="Fp7-9f-ggj" id="e7F-CR-DiU"/>
                         <outlet property="passwordField" destination="yNk-Ud-2dR" id="Y1o-RW-6Ej"/>
+                        <segue destination="49e-Tb-3d3" kind="presentation" identifier="tohomeScreen" id="XE0-du-6xU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qot-fY-fMu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-922" y="-569"/>
+            <point key="canvasLocation" x="-951" y="-710"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -436,4 +437,7 @@
         <image name="second" width="30" height="30"/>
         <image name="twitter_PNG28" width="170.5" height="170.5"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="XE0-du-6xU"/>
+    </inferredMetricsTieBreakers>
 </document>
