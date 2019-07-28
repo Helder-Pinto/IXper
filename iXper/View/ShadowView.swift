@@ -10,7 +10,7 @@ import UIKit
 
 @IBDesignable
 class ShadowView: UIView {
-
+    
     override func prepareForInterfaceBuilder() {
         shadow()
     }
@@ -28,5 +28,5 @@ class ShadowView: UIView {
         
         
     }
-
+    
 }

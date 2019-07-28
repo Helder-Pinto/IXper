@@ -6,30 +6,19 @@
 //  Copyright © 2019 Helder Pinto. All rights reserved.
 //
 
-import Foundation
 
+import UIKit
 
 class User{
     
-    private var fullName: String
-    private var jobPosition: String
-    private var photoUrl: String
+    public private(set) var fullname: String
+    public private(set) var position: String
+    public private(set) var picUrl: String
     
-    var fullname: String{
-        return fullName
-    }
-    var position: String{
-        
-        return jobPosition
-    }
-    
-    var picUrl: String {
-        return photoUrl
-    }
     
     init(fullname: String, position: String, picUrl: String){
-        self.fullName = fullname
-        self.jobPosition = position
-        self.photoUrl = picUrl
+        self.fullname = fullname
+        self.position = position
+        self.picUrl = picUrl
     }
 }

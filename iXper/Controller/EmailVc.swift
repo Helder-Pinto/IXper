@@ -10,25 +10,25 @@ import UIKit
 import Firebase
 
 class EmailVc: UIViewController {
-
+    
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
     
     @IBAction func login(_ sender: Any) {
         if emailField.text != nil && passwordField.text != nil {
             AuthService.instance.loginUser(withEmail: emailField.text!, andPassword: passwordField.text!) { (success, loginError) in
                 if success {
-                   self.performSegue(withIdentifier: "tohomeScreen", sender: Any?.self)
+                    self.performSegue(withIdentifier: "tohomeScreen", sender: Any?.self)
                 } else {
                     print(String(describing: loginError?.localizedDescription))
                     
                 }
-
+                
             }
         }
         

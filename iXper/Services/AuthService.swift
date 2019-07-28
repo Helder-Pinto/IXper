@@ -40,7 +40,7 @@ class AuthService{
         }
     }
     
-   
+    
     
     func logoutUser(){
         let firebaseAuth = Auth.auth()
@@ -54,5 +54,5 @@ class AuthService{
     
     
     
-   
+    
 }

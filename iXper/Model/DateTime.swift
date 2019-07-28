@@ -21,20 +21,20 @@ class DateTime {
             return 0
         }
     }
-        
+    
     var isRunning: Bool{
         return clockIn != nil
     }
-        
+    
     func start (){
         clockIn = Date()
     }
-        
+    
     func stop(){
         clockIn = nil
     }
     
-    func dayOfTheWeek(weekday: Int) -> String {
+    private func dayOfTheWeek(weekday: Int) -> String {
         
         switch weekday{
         case 1:
@@ -58,9 +58,9 @@ class DateTime {
         return ""
     }
     
-
     
-    func actualMonth(month: Int) -> String {
+    
+    private func actualMonth(month: Int) -> String {
         
         
         switch month {
@@ -71,11 +71,11 @@ class DateTime {
         case 3:
             return "March"
         case 4:
-           return "April"
+            return "April"
         case 5:
             return "May"
         case 6:
-           return "June"
+            return "June"
         case 7:
             return "July"
         case 8:
@@ -94,6 +94,30 @@ class DateTime {
         return ""
     }
     
+    
+    func updateTime() -> (actualTime: String, todaysDate: String){
+        let date = Date()
+        let calendar = Calendar.current
+        let month = calendar.component(.month, from: date)
+        let day = calendar.component(.day, from: date)
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        let weekday = calendar.component(.weekday, from: date)
+        var actualTime = ""
+        
+        
+        switch minutes{
+        case 0..<10 :
+            actualTime = "\(hour):0\(minutes)"
+        default:
+            actualTime = "\(hour):\(minutes)"
+        }
+        
+        let currentMonth = actualMonth(month: month)
+        let currentDayOfTheWeek = dayOfTheWeek(weekday: weekday)
+        let todaysDate =  currentDayOfTheWeek + ", \(currentMonth) \(day)"
+        return (actualTime, todaysDate)
+    }
     
     
 }

@@ -12,7 +12,7 @@ import Firebase
 import GoogleSignIn
 
 class AuthVc: UIViewController, GIDSignInUIDelegate {
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +31,11 @@ class AuthVc: UIViewController, GIDSignInUIDelegate {
     
     @IBAction func emailSignInBtn(_ sender: Any) {
         let emailVc = storyboard?.instantiateViewController(withIdentifier: "EmailVc")
-                      present(emailVc!, animated: true, completion: nil)
+        present(emailVc!, animated: true, completion: nil)
     }
     
     
-
     
-   
+    
+    
 }

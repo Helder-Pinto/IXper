@@ -64,7 +64,7 @@
 		D61D4A0E22E8E0A100A1350B /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		D61D4A1022E8E4C300A1350B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D62AB9D822E5A62B008D89B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D66581D522EDDF2200BF4646 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		D66581D522EDDF2200BF4646 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = ../ViewModel/HomeViewModel.swift; sourceTree = "<group>"; };
 		D6737BB322E9FA42005B8F5A /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		D6737BB522EADC59005B8F5A /* DateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTime.swift; sourceTree = "<group>"; };
 		D68EBA3C22E4DFEB009616FD /* iXper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iXper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,14 +140,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		D66581D722EDF74100BF4646 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				D66581D522EDDF2200BF4646 /* HomeViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		D68EBA3322E4DFEA009616FD = {
 			isa = PBXGroup;
 			children = (
@@ -173,7 +165,6 @@
 		D68EBA3E22E4DFEB009616FD /* iXper */ = {
 			isa = PBXGroup;
 			children = (
-				D66581D722EDF74100BF4646 /* ViewModel */,
 				D68EBA7122E58EDB009616FD /* Model */,
 				D68EBA7422E58EEF009616FD /* View */,
 				D68EBA7522E58F03009616FD /* Controller */,
@@ -228,6 +219,7 @@
 		D68EBA7122E58EDB009616FD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D66581D522EDDF2200BF4646 /* HomeViewModel.swift */,
 				D61D4A1022E8E4C300A1350B /* User.swift */,
 				D6737BB522EADC59005B8F5A /* DateTime.swift */,
 			);

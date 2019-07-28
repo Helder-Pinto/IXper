@@ -52,7 +52,7 @@ class DataService{
             let position = value?["position"] as? String ?? ""
             let photoUrl = value?["photoUrl"] as? String ?? ""
             let user = User(fullname: fullname, position: position, picUrl: photoUrl)
-           
+            
             handler(user)
             
             // ...
