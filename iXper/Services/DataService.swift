@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import RxSwift
 
 let DB_BASE = Database.database().reference()
 
@@ -31,7 +32,18 @@ class DataService{
         REF_USERS.child(uid).updateChildValues(userData)
     }
     
-    func getUserData(forUid uid: String, handler: @escaping (_ user: User ) -> Void) {
+    func getUserData(forUid uid: String) -> Observable<User>{
+        
+        return Observable<User>.create{ observer in
+            self.getUserData(forUid: uid){ (user) in
+                observer.onNext(user)
+            }
+            return Disposables.create()
+            
+        }
+    }
+    
+    private func getUserData(forUid uid: String, handler: @escaping (_ user: User ) -> Void) {
         
         REF_USERS.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value

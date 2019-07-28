@@ -15,6 +15,8 @@ target 'iXper' do
    pod 'FirebaseUI/OAuth'
    pod 'GoogleSignIn'
    pod 'Firebase/Storage'
+   pod 'RxSwift','~> 4.0'
+   pod 'RxCocoa','~> 4.0'
 
   target 'iXperTests' do
     inherit! :search_paths

@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import RxSwift
 
 class HomeScreen: UIViewController {
     
@@ -19,7 +20,7 @@ class HomeScreen: UIViewController {
     @IBOutlet weak var todaysDate: UILabel!
     @IBOutlet weak var clockInBtn: ShadowBtn!
    
-    
+    let disposebag = DisposeBag()
     let dateTime = DateTime()
     var toggle = true
     let formatter = DateFormatter()
@@ -30,35 +31,62 @@ class HomeScreen: UIViewController {
         Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
         self.showSpinner(onView: self.view)
        
+        
+        DataService.instance.getUserData(forUid: Auth.auth().currentUser!.uid)
+            .subscribe(onNext: { user in
+                
+                self.userName.text = user.fullname
+                           self.positionLabel.text = user.position
+                
+                
+                            guard let url = URL(string: user.picUrl) else {
+                                print("no profile picture found")
+                                return
+                            }
+                            //fetching the profile image from firebase
+                            DispatchQueue.global().async {
+                                [weak self] in
+                                if let data = try? Data(contentsOf: url){
+                                    if let image = UIImage(data: data) {
+                                        DispatchQueue.main.async {
+                                            self?.profilePicture.image = image
+                
+                
+                                            self!.removeSpinner()
+                                        }
+                                    }
+                                }
+                                }
+
+        }).disposed(by: disposebag)
+        
         // user data to the homescreen
-        DataService.instance.getUserData(forUid: Auth.auth().currentUser!.uid) { (user) in
-            self.userName.text = user.fullname
-            print(user.fullname)
-            print( Auth.auth().currentUser!.uid)
-            print(user.picUrl)
-            self.positionLabel.text = user.position
-           
-            guard let url = URL(string: user.picUrl) else {
-                print("no profile picture found")
-                return
-            }
-            //fetching the profile image from firebase
-            DispatchQueue.global().async {
-                [weak self] in
-                if let data = try? Data(contentsOf: url){
-                    if let image = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self?.profilePicture.image = image
-                            
-                            
-                            self!.removeSpinner()
-                        }
-                    }
-                   
-                }
-            }
-            
-        }
+//        DataService.instance.getUserData(forUid: Auth.auth().currentUser!.uid) { (user) in
+//            self.userName.text = user.fullname
+//            self.positionLabel.text = user.position
+//
+//
+//            guard let url = URL(string: user.picUrl) else {
+//                print("no profile picture found")
+//                return
+//            }
+//            //fetching the profile image from firebase
+//            DispatchQueue.global().async {
+//                [weak self] in
+//                if let data = try? Data(contentsOf: url){
+//                    if let image = UIImage(data: data) {
+//                        DispatchQueue.main.async {
+//                            self?.profilePicture.image = image
+//
+//
+//                            self!.removeSpinner()
+//                        }
+//                    }
+//
+//                }
+//            }
+//
+//        }
     }
     
     @objc func updateTime(){
@@ -66,7 +94,7 @@ class HomeScreen: UIViewController {
         //let format = DateFormatter()
         // current date
         let calendar = Calendar.current
-        let year = calendar.component(.year, from: date)
+        //let year = calendar.component(.year, from: date)
         let month = calendar.component(.month, from: date)
         let day = calendar.component(.day, from: date)
         let hour = calendar.component(.hour, from: date)
