@@ -192,43 +192,6 @@
             </objects>
             <point key="canvasLocation" x="863.768115942029" y="-324.77678571428572"/>
         </scene>
-        <!--OverView-->
-        <scene sceneID="wg7-f3-ORb">
-            <objects>
-                <viewController id="8rJ-Kc-sve" customClass="TimeSheet" customModule="iXper" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="106.5" y="426.5" width="201.5" height="43"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="99.5" y="477.5" width="215" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
-                            <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
-                            <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="OverView" image="second" id="cPa-gy-q4n"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="864" y="360"/>
-        </scene>
         <!--Auth Vc-->
         <scene sceneID="WyY-og-yA2">
             <objects>
@@ -414,12 +377,63 @@
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="X85-pq-XNg" kind="relationship" relationship="viewControllers" id="W3a-fL-VGN"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-99" y="0.0"/>
+        </scene>
+        <!--July - Aug 2019-->
+        <scene sceneID="Ruy-8p-T8n">
+            <objects>
+                <viewController id="0QZ-1k-0AP" customClass="TimeSheet" customModule="iXper" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JuW-8H-ePA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUK-ec-uvl" customClass="SpreadsheetView" customModule="SpreadsheetView">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="veT-eG-q0Y" firstAttribute="trailing" secondItem="QUK-ec-uvl" secondAttribute="trailing" id="0g7-S0-5KQ"/>
+                            <constraint firstItem="QUK-ec-uvl" firstAttribute="leading" secondItem="veT-eG-q0Y" secondAttribute="leading" id="6sV-Y2-g5y"/>
+                            <constraint firstItem="QUK-ec-uvl" firstAttribute="top" secondItem="veT-eG-q0Y" secondAttribute="top" id="JlX-UC-rwa"/>
+                            <constraint firstItem="veT-eG-q0Y" firstAttribute="bottom" secondItem="QUK-ec-uvl" secondAttribute="bottom" id="wvR-Of-xZc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="veT-eG-q0Y"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="July - Aug 2019" id="pR2-jN-HoD"/>
+                    <connections>
+                        <outlet property="navTitle" destination="pR2-jN-HoD" id="VzV-Dg-eVI"/>
+                        <outlet property="spreadsheetView" destination="QUK-ec-uvl" id="Q9S-7h-WkB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YvQ-V8-TQU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1773.913043478261" y="451.33928571428567"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="sao-kp-Hc1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="X85-pq-XNg" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="VjN-Ed-55S"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ffV-SN-RxN">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0QZ-1k-0AP" kind="relationship" relationship="rootViewController" id="HhH-8C-w7J"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jBS-xz-B9O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="863.768115942029" y="451.33928571428567"/>
         </scene>
     </scenes>
     <resources>
@@ -429,7 +443,6 @@
         <image name="facebook_logos_PNG19762" width="170.5" height="170.5"/>
         <image name="first" width="30" height="30"/>
         <image name="google_PNG19635" width="375" height="375"/>
-        <image name="second" width="30" height="30"/>
         <image name="twitter_PNG28" width="170.5" height="170.5"/>
     </resources>
     <inferredMetricsTieBreakers>

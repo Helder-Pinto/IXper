@@ -35,7 +35,6 @@ class DateTime {
     }
     
     private func dayOfTheWeek(weekday: Int) -> String {
-        
         switch weekday{
         case 1:
             return "Sunday"

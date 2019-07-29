@@ -74,17 +74,24 @@ class HomeScreen: UIViewController {
             clockInBtn.setTitle("Pause", for: .normal)
             toggle = false
             
+            if let actualTime = actualTime.text {
+                print(actualTime)
+            }
         } else {
             
             clockInBtn.backgroundColor = #colorLiteral(red: 0.3294117647, green: 0.6274509804, blue: 0.4980392157, alpha: 1)
             clockInBtn.setTitle("Clock In", for: .normal)
             toggle = true
+            
         }
     }
     
     
     @IBAction func clockOut(_ sender: Any) {
         dateTime.stop()
+        if let actualTime = actualTime.text {
+            print(actualTime)
+        }
         
     }
     

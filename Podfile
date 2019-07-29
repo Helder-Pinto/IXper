@@ -17,6 +17,7 @@ target 'iXper' do
    pod 'Firebase/Storage'
    pod 'RxSwift','~> 4.0'
    pod 'RxCocoa','~> 4.0'
+   pod 'SpreadsheetView', '~> 0.8'
 
   target 'iXperTests' do
     inherit! :search_paths
