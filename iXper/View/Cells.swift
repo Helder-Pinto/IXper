@@ -9,7 +9,7 @@
 import UIKit
 import SpreadsheetView
 
-class DateCell: Cell {
+class DatesCell: Cell {
     let label = UILabel()
     
     override init(frame: CGRect) {
@@ -66,7 +66,7 @@ class TimeTitleCell: Cell {
     }
 }
 
-class TimeCell: Cell {
+class Time: Cell {
     let label = UILabel()
     
     override init(frame: CGRect) {

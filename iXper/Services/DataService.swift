@@ -16,34 +16,37 @@ class DataService{
     
     static let instance = DataService()
     
-    private var _REF_BASE = DB_BASE
-    private var _REF_USERS = DB_BASE.child("users")
+    private static var _REF_BASE = DB_BASE
+    private static var _REF_USERS = DB_BASE.child("users")
     
-    var REF_BASE: DatabaseReference {
+    static var REF_BASE: DatabaseReference {
         return _REF_BASE
     }
     
-    var REF_USERS : DatabaseReference {
+    static var REF_USERS : DatabaseReference {
         return _REF_USERS
     }
     
     func createDBUser(uid: String, userData: Dictionary<String, Any>){
         
-        REF_USERS.child(uid).updateChildValues(userData)
+        DataService.REF_USERS.child(uid).updateChildValues(userData)
     }
     
     func getUserData(forUid uid: String) -> Observable<User>{
         
-        return Observable<User>.create{ observer in
-            self.getUserData(forUid: uid){ (user) in
+        return Observable<User>.create { observer in
+            DataService.getUserData(forUid: uid, onSuccess: { (user) in
                 observer.onNext(user)
+                observer.onCompleted()
+            }) { error in
+                observer.onError(error)
+                observer.onCompleted()
             }
             return Disposables.create()
-            
         }
     }
     
-    private func getUserData(forUid uid: String, handler: @escaping (_ user: User ) -> Void) {
+    private static func getUserData(forUid uid: String, onSuccess: @escaping (_ user: User ) -> Void, onError: @escaping (_: Error) -> Void) {
         
         REF_USERS.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
@@ -53,11 +56,12 @@ class DataService{
             let photoUrl = value?["photoUrl"] as? String ?? ""
             let user = User(fullname: fullname, position: position, picUrl: photoUrl)
             
-            handler(user)
+            onSuccess(user)
             
             // ...
         }) { (error) in
             print(error.localizedDescription)
+            onError(error)
         }
         
     }

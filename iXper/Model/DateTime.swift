@@ -34,8 +34,8 @@ class DateTime {
         clockIn = nil
     }
     
-    private func dayOfTheWeek(weekday: Int) -> String {
-        switch weekday{
+    private func dayOfTheWeek(for unit: Int) -> String {
+        switch unit{
         case 1:
             return "Sunday"
         case 2:
@@ -59,10 +59,10 @@ class DateTime {
     
     
     
-    private func actualMonth(month: Int) -> String {
+    private func month(of unit: Int) -> String {
         
         
-        switch month {
+        switch unit {
         case 1:
             return "January"
         case 2:
@@ -94,15 +94,18 @@ class DateTime {
     }
     
     
-    func updateTime() -> (actualTime: String, todaysDate: String){
+    func updateTime() -> (actualTime: String, currentDayOfTheWeek: String, currentMonth: String, day: Int, previousMonth: String, nextMonth: String, year: Int){
         let date = Date()
         let calendar = Calendar.current
-        let month = calendar.component(.month, from: date)
+        let monthUnit = calendar.component(.month, from: date)
+        let year = calendar.component(.year, from: date)
         let day = calendar.component(.day, from: date)
         let hour = calendar.component(.hour, from: date)
         let minutes = calendar.component(.minute, from: date)
         let weekday = calendar.component(.weekday, from: date)
         var actualTime = ""
+        let previousMonth = month(of: monthUnit - 1)
+        let nextMonth = month(of: monthUnit + 1)
         
         
         switch minutes{
@@ -112,10 +115,10 @@ class DateTime {
             actualTime = "\(hour):\(minutes)"
         }
         
-        let currentMonth = actualMonth(month: month)
-        let currentDayOfTheWeek = dayOfTheWeek(weekday: weekday)
-        let todaysDate =  currentDayOfTheWeek + ", \(currentMonth) \(day)"
-        return (actualTime, todaysDate)
+        let currentMonth = month(of: monthUnit)
+        let currentDayOfTheWeek = dayOfTheWeek(for: weekday)
+        
+        return (actualTime, currentDayOfTheWeek, currentMonth, day, previousMonth, nextMonth, year)
     }
     
     

@@ -11,7 +11,7 @@ import SpreadsheetView
 
 
 class TimeSheet: UIViewController, SpreadsheetViewDataSource, SpreadsheetViewDelegate {
-    @IBOutlet var spreadsheetView: SpreadsheetView!
+    @IBOutlet var spreadsheet: SpreadsheetView!
     @IBOutlet weak var navTitle: UINavigationItem!
     
     let datetime = DateTime()
@@ -38,26 +38,34 @@ class TimeSheet: UIViewController, SpreadsheetViewDataSource, SpreadsheetViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let date = datetime.updateTime()
         
-        //navTitle.title = "\(date)"
-        spreadsheetView.dataSource = self
-        spreadsheetView.delegate = self
+        if date.day <= 24{
+             navTitle.title = "\(date.previousMonth.prefix(3)) - \(date.currentMonth.prefix(3)) \(date.year)"
+        } else {
+            navTitle.title = "\(date.currentMonth.prefix(3)) - \(date.nextMonth.prefix(3)) \(date.year)"
+        }
         
-        spreadsheetView.contentInset = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
         
-        spreadsheetView.intercellSpacing = CGSize(width: 4, height: 1)
-        spreadsheetView.gridStyle = .none
         
-        spreadsheetView.register(DateCell.self, forCellWithReuseIdentifier: String(describing: DateCell.self))
-        spreadsheetView.register(TimeTitleCell.self, forCellWithReuseIdentifier: String(describing: TimeTitleCell.self))
-        spreadsheetView.register(TimeCell.self, forCellWithReuseIdentifier: String(describing: TimeCell.self))
-        spreadsheetView.register(DayTitleCell.self, forCellWithReuseIdentifier: String(describing: DayTitleCell.self))
-        spreadsheetView.register(ScheduleCell.self, forCellWithReuseIdentifier: String(describing: ScheduleCell.self))
+        spreadsheet.dataSource = self
+        spreadsheet.delegate = self
+        
+        spreadsheet.contentInset = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
+        
+        spreadsheet.intercellSpacing = CGSize(width: 4, height: 1)
+        spreadsheet.gridStyle = .none
+        
+        spreadsheet.register(DatesCell.self, forCellWithReuseIdentifier: String(describing: DatesCell.self))
+        spreadsheet.register(TimeTitleCell.self, forCellWithReuseIdentifier: String(describing: TimeTitleCell.self))
+        spreadsheet.register(Time.self, forCellWithReuseIdentifier: String(describing: Time.self))
+        spreadsheet.register(DayTitleCell.self, forCellWithReuseIdentifier: String(describing: DayTitleCell.self))
+        spreadsheet.register(ScheduleCell.self, forCellWithReuseIdentifier: String(describing: ScheduleCell.self))
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        spreadsheetView.flashScrollIndicators()
+        spreadsheet.flashScrollIndicators()
     }
     
     // MARK: DataSource
@@ -98,7 +106,7 @@ class TimeSheet: UIViewController, SpreadsheetViewDataSource, SpreadsheetViewDel
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, cellForItemAt indexPath: IndexPath) -> Cell? {
         if case (1...(dates.count + 1), 0) = (indexPath.column, indexPath.row) {
-            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DateCell.self), for: indexPath) as! DateCell
+            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DatesCell.self), for: indexPath) as! DatesCell
             cell.label.text = dates[indexPath.column - 1]
             return cell
         } else if case (1...(titles.count + 1), 1) = (indexPath.column, indexPath.row) {
@@ -111,7 +119,7 @@ class TimeSheet: UIViewController, SpreadsheetViewDataSource, SpreadsheetViewDel
             cell.label.text = "Day"
             return cell
         } else if case (0, 2...(days.count + 2)) = (indexPath.column, indexPath.row) {
-            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: TimeCell.self), for: indexPath) as! TimeCell
+            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: Time.self), for: indexPath) as! Time
             cell.label.text = days[indexPath.row - 2]
             cell.backgroundColor = indexPath.row % 2 == 0 ? evenRowColor : oddRowColor
             return cell

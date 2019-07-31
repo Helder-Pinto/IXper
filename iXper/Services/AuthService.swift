@@ -21,7 +21,7 @@ class AuthService{
                 return
             }
             
-            let userData = ["email" : user.email] //if theres a user we get the provider(google hotmail etc) and the email
+            let userData = ["email" : user.email] 
             DataService.instance.createDBUser(uid: user.uid, userData: userData as Dictionary<String, Any>)
             userCreationComplete(true, nil)
             

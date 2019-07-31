@@ -29,7 +29,7 @@
                                     <constraint firstAttribute="height" constant="373" id="HpF-Ck-sjO"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hgx-6I-XLl" customClass="ShadowView" customModule="iXper" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hgx-6I-XLl" customClass="ShadowButton" customModule="iXper" customModuleProvider="target">
                                 <rect key="frame" x="42" y="81" width="330" height="402"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a2Z-kN-qWc">
@@ -45,22 +45,22 @@
                                     <constraint firstAttribute="bottom" secondItem="a2Z-kN-qWc" secondAttribute="bottom" constant="12" id="y8D-O7-orb"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gygiguoigiou" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSA-KF-WKQ">
-                                <rect key="frame" x="90" y="491" width="234" height="27"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="gygiguoigiou" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSA-KF-WKQ">
+                                <rect key="frame" x="90" y="491" width="234" height="26"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CuE-Uh-Oi7">
-                                <rect key="frame" x="0.0" y="548" width="414" height="265"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CuE-Uh-Oi7">
+                                <rect key="frame" x="0.0" y="547" width="414" height="4"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17:59" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qf-U1-S9U">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="17:59" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qf-U1-S9U">
                                         <rect key="frame" x="146" y="23" width="122" height="32"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyW-lK-l7M" customClass="ShadowBtn" customModule="iXper" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyW-lK-l7M" customClass="ShadowButton" customModule="iXper" customModuleProvider="target">
                                         <rect key="frame" x="25" y="120.5" width="157" height="42.5"/>
                                         <color key="backgroundColor" red="0.32941176470588235" green="0.62745098039215685" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
@@ -75,7 +75,7 @@
                                             <action selector="clockInAndPause:" destination="9pv-A4-QxB" eventType="touchUpInside" id="1Ep-Ka-dNH"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nOD-rI-8aM" customClass="ShadowBtn" customModule="iXper" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nOD-rI-8aM" customClass="ShadowButton" customModule="iXper" customModuleProvider="target">
                                         <rect key="frame" x="232" y="120.5" width="157" height="42"/>
                                         <color key="backgroundColor" red="0.90631181390000004" green="0.1647058824" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -90,13 +90,13 @@
                                             <action selector="clockOut:" destination="9pv-A4-QxB" eventType="touchUpInside" id="0I2-DY-vRc"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elapsed time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PEq-jj-9sE">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Elapsed time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PEq-jj-9sE">
                                         <rect key="frame" x="114" y="208" width="103" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ifa-dp-bVn">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="00:00.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ifa-dp-bVn">
                                         <rect key="frame" x="227" y="209" width="87" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="87" id="uIq-4a-31T"/>
@@ -105,7 +105,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday, July 24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0Z-PN-ch6">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Wednesday, July 24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0Z-PN-ch6">
                                         <rect key="frame" x="130.5" y="63" width="153" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -133,13 +133,13 @@
                                     <constraint firstAttribute="trailing" secondItem="9qf-U1-S9U" secondAttribute="trailing" constant="146" id="sHP-jZ-Fdt"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kgukggui" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAw-e4-0Fq">
-                                <rect key="frame" x="42" y="526" width="330" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="kgukggui" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAw-e4-0Fq">
+                                <rect key="frame" x="42" y="525" width="330" height="15"/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0e-f8-tyS" customClass="ShadowBtn" customModule="iXper" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0e-f8-tyS" customClass="ShadowButton" customModule="iXper" customModuleProvider="target">
                                 <rect key="frame" x="330" y="43" width="64" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -180,9 +180,9 @@
                     <tabBarItem key="tabBarItem" title="HomeScreen" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="actualTime" destination="9qf-U1-S9U" id="0v4-W8-3cg"/>
-                        <outlet property="clockInBtn" destination="lyW-lK-l7M" id="EZo-kE-D9Q"/>
+                        <outlet property="clockIn" destination="lyW-lK-l7M" id="EZo-kE-D9Q"/>
                         <outlet property="elapsedTime" destination="ifa-dp-bVn" id="stm-88-2RT"/>
-                        <outlet property="positionLabel" destination="BAw-e4-0Fq" id="41w-0d-Okl"/>
+                        <outlet property="position" destination="BAw-e4-0Fq" id="41w-0d-Okl"/>
                         <outlet property="profilePicture" destination="a2Z-kN-qWc" id="iXo-S6-Yc3"/>
                         <outlet property="todaysDate" destination="z0Z-PN-ch6" id="VOp-if-HWn"/>
                         <outlet property="userName" destination="eSA-KF-WKQ" id="zyW-1t-zbN"/>
@@ -192,10 +192,10 @@
             </objects>
             <point key="canvasLocation" x="863.768115942029" y="-324.77678571428572"/>
         </scene>
-        <!--Auth Vc-->
+        <!--Auth View Controller-->
         <scene sceneID="WyY-og-yA2">
             <objects>
-                <viewController storyboardIdentifier="AuthVc" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bBQ-uD-ZlW" customClass="AuthVc" customModule="iXper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthVc" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bBQ-uD-ZlW" customClass="AuthViewController" customModule="iXper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MXa-Q3-52L">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -211,7 +211,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpD-OI-Zpi" customClass="ShadowBtn" customModule="iXper" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpD-OI-Zpi" customClass="ShadowButton" customModule="iXper" customModuleProvider="target">
                                 <rect key="frame" x="57" y="640" width="300" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.35084457418530796" green="0.61176470588235299" blue="0.9882352941176471" alpha="1" colorSpace="calibratedRGB"/>
@@ -220,7 +220,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIN-Wp-ugi" customClass="ShadowBtn" customModule="iXper" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIN-Wp-ugi" customClass="ShadowButton" customModule="iXper" customModuleProvider="target">
                                 <rect key="frame" x="57" y="707" width="300" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.90631181389809445" green="0.16470588235294117" blue="0.1764705882352941" alpha="1" colorSpace="calibratedRGB"/>
@@ -232,7 +232,7 @@
                                     <action selector="emailSignInBtn:" destination="bBQ-uD-ZlW" eventType="touchUpInside" id="vNI-F0-4YJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l3e-Dn-Eu7" customClass="ShadowBtn" customModule="iXper" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l3e-Dn-Eu7" customClass="ShadowButton" customModule="iXper" customModuleProvider="target">
                                 <rect key="frame" x="57" y="569" width="300" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.25490196078431371" green="0.34901960784313724" blue="0.5725490196078431" alpha="1" colorSpace="calibratedRGB"/>
@@ -241,7 +241,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pca-2w-ZzL" customClass="ShadowBtn" customModule="iXper" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pca-2w-ZzL" customClass="ShadowButton" customModule="iXper" customModuleProvider="target">
                                 <rect key="frame" x="57" y="501" width="300" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -290,10 +290,10 @@
             </objects>
             <point key="canvasLocation" x="-1713.0434782608697" y="0.0"/>
         </scene>
-        <!--Email Vc-->
+        <!--Email View Controller-->
         <scene sceneID="7A1-W4-GPh">
             <objects>
-                <viewController storyboardIdentifier="EmailVc" id="Wue-wh-9j2" customClass="EmailVc" customModule="iXper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EmailVc" id="Wue-wh-9j2" customClass="EmailViewController" customModule="iXper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aw9-0A-eKB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -333,7 +333,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NBK-tt-arR" customClass="ShadowBtn" customModule="iXper" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NBK-tt-arR" customClass="ShadowButton" customModule="iXper" customModuleProvider="target">
                                 <rect key="frame" x="57" y="466" width="300" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.25490196079999999" green="0.34901960780000002" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -357,8 +357,8 @@
                         <viewLayoutGuide key="safeArea" id="3q4-hk-7AB"/>
                     </view>
                     <connections>
-                        <outlet property="emailField" destination="Fp7-9f-ggj" id="e7F-CR-DiU"/>
-                        <outlet property="passwordField" destination="yNk-Ud-2dR" id="Y1o-RW-6Ej"/>
+                        <outlet property="email" destination="Fp7-9f-ggj" id="e7F-CR-DiU"/>
+                        <outlet property="password" destination="yNk-Ud-2dR" id="Y1o-RW-6Ej"/>
                         <segue destination="49e-Tb-3d3" kind="presentation" identifier="tohomeScreen" id="XE0-du-6xU"/>
                     </connections>
                 </viewController>
@@ -409,7 +409,7 @@
                     <navigationItem key="navigationItem" title="July - Aug 2019" id="pR2-jN-HoD"/>
                     <connections>
                         <outlet property="navTitle" destination="pR2-jN-HoD" id="VzV-Dg-eVI"/>
-                        <outlet property="spreadsheetView" destination="QUK-ec-uvl" id="Q9S-7h-WkB"/>
+                        <outlet property="spreadsheet" destination="QUK-ec-uvl" id="Q9S-7h-WkB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YvQ-V8-TQU" userLabel="First Responder" sceneMemberID="firstResponder"/>

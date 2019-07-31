@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class ShadowBtn: UIButton {
+class ShadowButton: UIButton {
     
     override func prepareForInterfaceBuilder() {
         shadow()
