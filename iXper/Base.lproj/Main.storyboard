@@ -18,7 +18,7 @@
         <!--HomeScreen-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController storyboardIdentifier="HomeScreen" id="9pv-A4-QxB" customClass="HomeScreen" customModule="iXper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeScreen" id="9pv-A4-QxB" customClass="HomeViewController" customModule="iXper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -446,6 +446,6 @@
         <image name="twitter_PNG28" width="170.5" height="170.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XE0-du-6xU"/>
+        <segue reference="07L-13-H4d"/>
     </inferredMetricsTieBreakers>
 </document>
