@@ -19,12 +19,14 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var position: UILabel!
     @IBOutlet weak var actualTime: UILabel!
     @IBOutlet weak var todaysDate: UILabel!
-    @IBOutlet weak var clockIn: ShadowButton!
+    @IBOutlet weak var clockInButton: ShadowButton!
+    @IBOutlet weak var clockOutButton: ShadowButton!
     
     private let disposebag = DisposeBag()
     private let dateTime = DateTime()
     private let formatter = DateFormatter()
     private let viewModel = HomeViewModel()
+
     
     private let isTimerRunning = BehaviorRelay(value: false)
     private let isTimerPaused = BehaviorRelay(value: false)
@@ -34,6 +36,9 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        DataService.refUsers.child(Auth.auth().currentUser!.uid).observe(.childAdded, with: { (snapshot) in
+            print(snapshot)
+        })
         
         Observable.interval(0.1, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_: Int) in
@@ -64,11 +69,11 @@ class HomeViewController: UIViewController {
             .distinctUntilChanged(==)
             .subscribe(onNext: { [weak self] (isRunning, isPaused) in
                 if !(!isRunning || isPaused) {
-                    self?.clockIn.backgroundColor = #colorLiteral(red: 1, green: 0.8135027289, blue: 0, alpha: 1)
-                    self?.clockIn.setTitle("Pause", for: .normal)
+                    self?.clockInButton.backgroundColor = #colorLiteral(red: 1, green: 0.8135027289, blue: 0, alpha: 1)
+                    self?.clockInButton.setTitle("Pause", for: .normal)
                 } else {
-                    self?.clockIn.backgroundColor = #colorLiteral(red: 0.3294117647, green: 0.6274509804, blue: 0.4980392157, alpha: 1)
-                    self?.clockIn.setTitle("Clock In", for: .normal)
+                    self?.clockInButton.backgroundColor = #colorLiteral(red: 0.3294117647, green: 0.6274509804, blue: 0.4980392157, alpha: 1)
+                    self?.clockInButton.setTitle("Clock In", for: .normal)
                 }
             })
             .disposed(by: disposebag)
@@ -126,10 +131,17 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func clockInAndPause(_ sender: Any) {
+    
+        if let activity = clockInButton.currentTitle {
+            TimeSheetViewModel(activity: activity)
+        }
         
         if !isTimerRunning.value {
+           // dataInAndOut (activity: clockInButton.currentTitle!)
+         
             counter = 0
             isTimerRunning.accept(true)
+            
         } else {
             isTimerPaused.accept(!isTimerPaused.value)
         }
@@ -137,6 +149,10 @@ class HomeViewController: UIViewController {
     
     
     @IBAction func clockOut(_ sender: Any) {
+        
+        if let activity = clockOutButton.currentTitle {
+             TimeSheetViewModel(activity: activity)
+        }
         isTimerRunning.accept(false)
         dateTime.stop()
         if let actualTime = actualTime.text {
@@ -152,6 +168,7 @@ class HomeViewController: UIViewController {
         elapsedTime.text = formatter.string(from: Date(timeIntervalSince1970: counter))
 
     }
+    
     
 }
 

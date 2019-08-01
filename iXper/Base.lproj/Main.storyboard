@@ -180,7 +180,8 @@
                     <tabBarItem key="tabBarItem" title="HomeScreen" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="actualTime" destination="9qf-U1-S9U" id="0v4-W8-3cg"/>
-                        <outlet property="clockIn" destination="lyW-lK-l7M" id="EZo-kE-D9Q"/>
+                        <outlet property="clockInButton" destination="lyW-lK-l7M" id="EZo-kE-D9Q"/>
+                        <outlet property="clockOutButton" destination="nOD-rI-8aM" id="3p0-6x-YB2"/>
                         <outlet property="elapsedTime" destination="ifa-dp-bVn" id="stm-88-2RT"/>
                         <outlet property="position" destination="BAw-e4-0Fq" id="41w-0d-Okl"/>
                         <outlet property="profilePicture" destination="a2Z-kN-qWc" id="iXo-S6-Yc3"/>
@@ -387,7 +388,7 @@
         <!--July - Aug 2019-->
         <scene sceneID="Ruy-8p-T8n">
             <objects>
-                <viewController id="0QZ-1k-0AP" customClass="TimeSheet" customModule="iXper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="0QZ-1k-0AP" customClass="TimeSheetController" customModule="iXper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JuW-8H-ePA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

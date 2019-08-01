@@ -10,7 +10,7 @@ import UIKit
 import SpreadsheetView
 
 
-class TimeSheet: UIViewController, SpreadsheetViewDataSource, SpreadsheetViewDelegate {
+class TimeSheetController: UIViewController, SpreadsheetViewDataSource, SpreadsheetViewDelegate {
     @IBOutlet var spreadsheet: SpreadsheetView!
     @IBOutlet weak var navTitle: UINavigationItem!
     

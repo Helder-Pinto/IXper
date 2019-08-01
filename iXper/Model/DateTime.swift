@@ -6,11 +6,13 @@
 //  Copyright © 2019 Helder Pinto. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import RxSwift
+import RxCocoa
 
 class DateTime {
     
-    
+    //    set timezone formatter
     private var clockIn: Date?
     
     var elapsedTime: TimeInterval{
@@ -95,6 +97,7 @@ class DateTime {
     
     
     func updateTime() -> (actualTime: String, currentDayOfTheWeek: String, currentMonth: String, day: Int, previousMonth: String, nextMonth: String, year: Int){
+        
         let date = Date()
         let calendar = Calendar.current
         let monthUnit = calendar.component(.month, from: date)
@@ -123,3 +126,4 @@ class DateTime {
     
     
 }
+

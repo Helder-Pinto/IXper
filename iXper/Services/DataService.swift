@@ -10,28 +10,44 @@ import Foundation
 import Firebase
 import RxSwift
 
-let DB_BASE = Database.database().reference()
+let database = Database.database().reference()
 
 class DataService{
     
     static let instance = DataService()
     
-    private static var _REF_BASE = DB_BASE
-    private static var _REF_USERS = DB_BASE.child("users")
+    private static var databaseReference = database
+    private static var usersReference = database.child("users")
+  
     
-    static var REF_BASE: DatabaseReference {
-        return _REF_BASE
+    static var ref: DatabaseReference {
+        return databaseReference
     }
     
-    static var REF_USERS : DatabaseReference {
-        return _REF_USERS
+    static var refUsers : DatabaseReference {
+        return usersReference
     }
     
+    
+    //MARK: SEND DATA TO FIREBASE
     func createDBUser(uid: String, userData: Dictionary<String, Any>){
         
-        DataService.REF_USERS.child(uid).updateChildValues(userData)
+        DataService.refUsers.child(uid).updateChildValues(userData)
     }
     
+    func createTimeSheet(uid: String, timeSheetData: Dictionary<String, Any>){
+        
+        DataService.refUsers.child(uid).updateChildValues(timeSheetData)
+    }
+    
+   // ["/TimeSheet/years/2019/june/31/clockIn":"9:00"]
+    
+    
+    
+    
+    
+    
+    //MARK: GET DATA FROM FIREBASE
     func getUserData(forUid uid: String) -> Observable<User>{
         
         return Observable<User>.create { observer in
@@ -48,12 +64,13 @@ class DataService{
     
     private static func getUserData(forUid uid: String, onSuccess: @escaping (_ user: User ) -> Void, onError: @escaping (_: Error) -> Void) {
         
-        REF_USERS.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+        refUsers.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
             let fullname = value?["fullname"] as? String ?? ""
             let position = value?["position"] as? String ?? ""
             let photoUrl = value?["photoUrl"] as? String ?? ""
+            let timeSheet = value?["TimeSheet"] as? String ?? ""
             let user = User(fullname: fullname, position: position, picUrl: photoUrl)
             
             onSuccess(user)

@@ -14,6 +14,7 @@ class User{
     public private(set) var fullname: String
     public private(set) var position: String
     public private(set) var picUrl: String
+   
     
     
     init(fullname: String, position: String, picUrl: String){
