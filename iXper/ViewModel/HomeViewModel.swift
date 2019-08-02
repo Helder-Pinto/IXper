@@ -15,10 +15,15 @@
  class HomeViewModel {
     
     private let disposebag = DisposeBag()
+    private let dateTime = DateTime()
     
     let fullname = BehaviorRelay(value: nil as String?)
     let position = BehaviorRelay(value: nil as String?)
     let image = BehaviorRelay(value: nil as UIImage?)
+    
+    let actualTimeRelay = BehaviorRelay(value: nil as String?)
+
+  
     
     init() {
         
@@ -61,8 +66,25 @@
         
         
     }
-    
-    
+   
+    func createTimeSheet(activity: String) {
+        
+        let year = String(dateTime.updateTime().year)
+        
+        
+        
+        let month = dateTime.updateTime().currentMonth
+        let day = String(dateTime.updateTime().day)
+        let actualTime = dateTime.updateTime().actualTime
+        Observable.of(actualTime)
+            .bind(to: actualTimeRelay)
+            .disposed(by: disposebag)
+       
+        
+        if let uid = Auth.auth().currentUser?.uid {
+            DataService.instance.createTimeSheet(uid: uid, timeSheetData: ["/TimeSheet/years/\(year)/\(month)/\(day)/\(activity)":"\(actualTime)"])
+        }
+    }
     
     
  }

@@ -26,20 +26,18 @@ class HomeViewController: UIViewController {
     private let dateTime = DateTime()
     private let formatter = DateFormatter()
     private let viewModel = HomeViewModel()
-
-    
     private let isTimerRunning = BehaviorRelay(value: false)
     private let isTimerPaused = BehaviorRelay(value: false)
     
     private var counter = TimeInterval(0)
     
+    var timeSheet = [String: Any]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+      
         
-        DataService.refUsers.child(Auth.auth().currentUser!.uid).observe(.childAdded, with: { (snapshot) in
-            print(snapshot)
-        })
-        
+        //retrieveMessages()
         Observable.interval(0.1, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_: Int) in
                 self?.updateTime()
@@ -90,17 +88,22 @@ class HomeViewController: UIViewController {
                 self?.userName.text = fullname
             })
             .disposed(by: disposebag)
+//        viewModel.yearRelay.asObservable()
+//            .subscribe(onNext: {  [weak self] year in
+//                self?.userName.text = year
+//            })
+//            .disposed(by: disposebag)
         
         viewModel.position.asObservable()
             .subscribe(onNext:{ [weak self] position in
                 self?.position.text = position
             })
-        .disposed(by: disposebag)
+            .disposed(by: disposebag)
         viewModel.image.asObservable()
             .subscribe(onNext: { [weak self] image in
                 self?.profilePicture.image = image
             })
-         .disposed(by: disposebag)
+            .disposed(by: disposebag)
         
         Observable
             .combineLatest(viewModel.fullname, viewModel.position, viewModel.image) {
@@ -113,14 +116,14 @@ class HomeViewController: UIViewController {
                 }
             })
             .disposed(by: disposebag)
-
+        
     }
     
     @objc func updateTime(){
         let date = dateTime.updateTime()
         actualTime.text = date.actualTime
         todaysDate.text = date.currentDayOfTheWeek + ", \(date.currentMonth) \(date.day)"
-  
+        
     }
     
     @IBAction func logOutBtn(_ sender: Any) {
@@ -131,14 +134,16 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func clockInAndPause(_ sender: Any) {
-    
+        
         if let activity = clockInButton.currentTitle {
-            TimeSheetViewModel(activity: activity)
+//            WorkingDataViewModel(activity: activity)
+              viewModel.createTimeSheet(activity: activity)
+            
         }
         
         if !isTimerRunning.value {
-           // dataInAndOut (activity: clockInButton.currentTitle!)
-         
+            // dataInAndOut (activity: clockInButton.currentTitle!)
+            
             counter = 0
             isTimerRunning.accept(true)
             
@@ -151,7 +156,7 @@ class HomeViewController: UIViewController {
     @IBAction func clockOut(_ sender: Any) {
         
         if let activity = clockOutButton.currentTitle {
-             TimeSheetViewModel(activity: activity)
+            WorkingDataViewModel(activity: activity)
         }
         isTimerRunning.accept(false)
         dateTime.stop()
@@ -166,9 +171,8 @@ class HomeViewController: UIViewController {
     @objc func updateElapsedTime() {
         formatter.dateFormat = "mm:ss:SS"
         elapsedTime.text = formatter.string(from: Date(timeIntervalSince1970: counter))
-
+        
     }
-    
-    
+ 
 }
 

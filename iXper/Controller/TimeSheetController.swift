@@ -22,8 +22,8 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
                         UIColor(red: 0.106, green: 0.541, blue: 0.827, alpha: 1),
                         UIColor(red: 0.953, green: 0.498, blue: 0.098, alpha: 1),
                         UIColor(red: 0.918, green: 0.224, blue: 0.153, alpha: 1)]
-    let days = ["25 Thu", "26 Fri", "27 Sat", "28 Sun", "29 Mon", "30 Tue", "31 Wed", "1 Thu", "2 Fri",
-                "3 Sat", "4 Sun", "5 Mon", "6 Tue", "7 Wed", "8 Thu", "9 Fri", "10 Sat", "11 Sun", "12 Mon", "13 Tue", "14 Wed", "15 Thu", "16 Fri", "17 Sat", "18 Sun", "19 Mon", "20 Tue", "21 Wed", "22 Thu", "23 Fri", "24 Sat"]
+    var days = [Int]()
+
     let evenRowColor = UIColor(red: 0.914, green: 0.914, blue: 0.906, alpha: 1)
     let oddRowColor: UIColor = .white
     let data = [
@@ -39,13 +39,17 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     override func viewDidLoad() {
         super.viewDidLoad()
         let date = datetime.updateTime()
+//
+        navTitle.title = "\(date.currentMonth.prefix(3)) \(date.year)"
+        days = [Int](1...date.daysInCurrentMonth)
         
-        if date.day <= 24{
-             navTitle.title = "\(date.previousMonth.prefix(3)) - \(date.currentMonth.prefix(3)) \(date.year)"
-        } else {
-            navTitle.title = "\(date.currentMonth.prefix(3)) - \(date.nextMonth.prefix(3)) \(date.year)"
-        }
         
+//        if date.day <= 24{
+//             navTitle.title = "\(date.previousMonth.prefix(3)) - \(date.currentMonth.prefix(3)) \(date.year)"
+//        } else {
+//            navTitle.title = "\(date.currentMonth.prefix(3)) - \(date.nextMonth.prefix(3)) \(date.year)"
+//        }
+//
         
         
         spreadsheet.dataSource = self
@@ -120,7 +124,7 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
             return cell
         } else if case (0, 2...(days.count + 2)) = (indexPath.column, indexPath.row) {
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: Time.self), for: indexPath) as! Time
-            cell.label.text = days[indexPath.row - 2]
+            cell.label.text = String(days[indexPath.row - 2])
             cell.backgroundColor = indexPath.row % 2 == 0 ? evenRowColor : oddRowColor
             return cell
         } else if case (1...(titles.count + 1), 2...(days.count + 2)) = (indexPath.column, indexPath.row) {

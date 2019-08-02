@@ -37,6 +37,7 @@ class DateTime {
     }
     
     private func dayOfTheWeek(for unit: Int) -> String {
+        //calendar.weekdaySymbols 
         switch unit{
         case 1:
             return "Sunday"
@@ -96,7 +97,7 @@ class DateTime {
     }
     
     
-    func updateTime() -> (actualTime: String, currentDayOfTheWeek: String, currentMonth: String, day: Int, previousMonth: String, nextMonth: String, year: Int){
+    func updateTime() -> (actualTime: String, currentDayOfTheWeek: String, currentMonth: String, day: Int, previousMonth: String, nextMonth: String, year: Int, daysInCurrentMonth: Int){
         
         let date = Date()
         let calendar = Calendar.current
@@ -109,6 +110,15 @@ class DateTime {
         var actualTime = ""
         let previousMonth = month(of: monthUnit - 1)
         let nextMonth = month(of: monthUnit + 1)
+  
+ 
+        
+        // Calculate start and end of the current year (or month with `.month`):
+        let interval = calendar.dateInterval(of: .month, for: date)!
+        
+        // Compute difference in days:
+        let daysInCurrentMonth = calendar.dateComponents([.day], from: interval.start, to: interval.end).day!
+        
         
         
         switch minutes{
@@ -121,7 +131,7 @@ class DateTime {
         let currentMonth = month(of: monthUnit)
         let currentDayOfTheWeek = dayOfTheWeek(for: weekday)
         
-        return (actualTime, currentDayOfTheWeek, currentMonth, day, previousMonth, nextMonth, year)
+        return (actualTime, currentDayOfTheWeek, currentMonth, day, previousMonth, nextMonth, year, daysInCurrentMonth)
     }
     
     

@@ -30,10 +30,12 @@
 		D699923622F1C842001E942D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699923522F1C842001E942D /* HomeViewController.swift */; };
 		D6B5A32622EEF61800C51C85 /* TimeSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B5A32522EEF61800C51C85 /* TimeSheetController.swift */; };
 		D6B5A32822EF1CBE00C51C85 /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B5A32722EF1CBE00C51C85 /* Cells.swift */; };
+		D6B8B48422F426E0004EF459 /* workTimeCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8B48322F426E0004EF459 /* workTimeCapture.swift */; };
+		D6B8B48622F4C428004EF459 /* TimeSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8B48522F4C428004EF459 /* TimeSheetViewModel.swift */; };
 		D6DF293122F1BFC60022F8E7 /* ShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DF293022F1BFC50022F8E7 /* ShadowButton.swift */; };
 		D6F8855F22F05E2700BDADDA /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F8855E22F05E2700BDADDA /* HomeViewModel.swift */; };
 		D6F8856122F05E4B00BDADDA /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F8856022F05E4B00BDADDA /* AuthViewModel.swift */; };
-		D6FFD9E622F1CA170085496A /* TimeSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FFD9E522F1CA170085496A /* TimeSheetViewModel.swift */; };
+		D6FFD9E622F1CA170085496A /* WorkingDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FFD9E522F1CA170085496A /* WorkingDataViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,10 +89,12 @@
 		D699923522F1C842001E942D /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D6B5A32522EEF61800C51C85 /* TimeSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSheetController.swift; sourceTree = "<group>"; };
 		D6B5A32722EF1CBE00C51C85 /* Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
+		D6B8B48322F426E0004EF459 /* workTimeCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = workTimeCapture.swift; sourceTree = "<group>"; };
+		D6B8B48522F4C428004EF459 /* TimeSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSheetViewModel.swift; sourceTree = "<group>"; };
 		D6DF293022F1BFC50022F8E7 /* ShadowButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowButton.swift; sourceTree = "<group>"; };
 		D6F8855E22F05E2700BDADDA /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D6F8856022F05E4B00BDADDA /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
-		D6FFD9E522F1CA170085496A /* TimeSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSheetViewModel.swift; sourceTree = "<group>"; };
+		D6FFD9E522F1CA170085496A /* WorkingDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingDataViewModel.swift; sourceTree = "<group>"; };
 		F230054BD343B2933F4607C0 /* Pods_iXperUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iXperUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6609EC8F28D79317CC35490 /* Pods_iXper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iXper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -228,6 +232,7 @@
 			children = (
 				D61D4A1022E8E4C300A1350B /* User.swift */,
 				D6737BB522EADC59005B8F5A /* DateTime.swift */,
+				D6B8B48322F426E0004EF459 /* workTimeCapture.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -267,7 +272,8 @@
 			children = (
 				D6F8855E22F05E2700BDADDA /* HomeViewModel.swift */,
 				D6F8856022F05E4B00BDADDA /* AuthViewModel.swift */,
-				D6FFD9E522F1CA170085496A /* TimeSheetViewModel.swift */,
+				D6FFD9E522F1CA170085496A /* WorkingDataViewModel.swift */,
+				D6B8B48522F4C428004EF459 /* TimeSheetViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -521,12 +527,14 @@
 				D6737BB422E9FA42005B8F5A /* Spinner.swift in Sources */,
 				D699923622F1C842001E942D /* HomeViewController.swift in Sources */,
 				D6B5A32822EF1CBE00C51C85 /* Cells.swift in Sources */,
-				D6FFD9E622F1CA170085496A /* TimeSheetViewModel.swift in Sources */,
+				D6FFD9E622F1CA170085496A /* WorkingDataViewModel.swift in Sources */,
 				D699923422F1C2A4001E942D /* AuthViewController.swift in Sources */,
+				D6B8B48622F4C428004EF459 /* TimeSheetViewModel.swift in Sources */,
 				D6737BB622EADC59005B8F5A /* DateTime.swift in Sources */,
 				D613994B22E5A94700D4FC83 /* DataService.swift in Sources */,
 				D699923322F1C2A4001E942D /* EmailViewController.swift in Sources */,
 				D61D4A1122E8E4C300A1350B /* User.swift in Sources */,
+				D6B8B48422F426E0004EF459 /* workTimeCapture.swift in Sources */,
 				D6F8855F22F05E2700BDADDA /* HomeViewModel.swift in Sources */,
 				D6B5A32622EEF61800C51C85 /* TimeSheetController.swift in Sources */,
 				D6DF293122F1BFC60022F8E7 /* ShadowButton.swift in Sources */,
