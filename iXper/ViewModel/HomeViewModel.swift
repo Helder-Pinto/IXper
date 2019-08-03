@@ -82,7 +82,8 @@
        
         
         if let uid = Auth.auth().currentUser?.uid {
-            DataService.instance.createTimeSheet(uid: uid, timeSheetData: ["/TimeSheet/years/\(year)/\(month)/\(day)/\(activity)":"\(actualTime)"])
+            DataService.instance.createTimeSheet(uid: uid, timeSheetData:
+               ["/TimeSheet/years/\(year)/\(month)/\(day)/\(activity)":"\(actualTime)"])
         }
     }
     

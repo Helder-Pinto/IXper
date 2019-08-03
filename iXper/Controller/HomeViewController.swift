@@ -31,13 +31,13 @@ class HomeViewController: UIViewController {
     
     private var counter = TimeInterval(0)
     
-    var timeSheet = [String: Any]()
+    // var timeSheetArray = [Dictionary<String, Any>]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
         
-        //retrieveMessages()
+        retreiveData()
+        //retrieve()
         Observable.interval(0.1, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_: Int) in
                 self?.updateTime()
@@ -88,11 +88,11 @@ class HomeViewController: UIViewController {
                 self?.userName.text = fullname
             })
             .disposed(by: disposebag)
-//        viewModel.yearRelay.asObservable()
-//            .subscribe(onNext: {  [weak self] year in
-//                self?.userName.text = year
-//            })
-//            .disposed(by: disposebag)
+        //        viewModel.yearRelay.asObservable()
+        //            .subscribe(onNext: {  [weak self] year in
+        //                self?.userName.text = year
+        //            })
+        //            .disposed(by: disposebag)
         
         viewModel.position.asObservable()
             .subscribe(onNext:{ [weak self] position in
@@ -136,8 +136,8 @@ class HomeViewController: UIViewController {
     @IBAction func clockInAndPause(_ sender: Any) {
         
         if let activity = clockInButton.currentTitle {
-//            WorkingDataViewModel(activity: activity)
-              viewModel.createTimeSheet(activity: activity)
+            //            WorkingDataViewModel(activity: activity)
+            viewModel.createTimeSheet(activity: activity)
             
         }
         
@@ -156,7 +156,7 @@ class HomeViewController: UIViewController {
     @IBAction func clockOut(_ sender: Any) {
         
         if let activity = clockOutButton.currentTitle {
-            WorkingDataViewModel(activity: activity)
+            viewModel.createTimeSheet(activity: activity)
         }
         isTimerRunning.accept(false)
         dateTime.stop()
@@ -173,6 +173,31 @@ class HomeViewController: UIViewController {
         elapsedTime.text = formatter.string(from: Date(timeIntervalSince1970: counter))
         
     }
- 
+    
+    func retreiveData() {
+        var daysOfWork = [workDaysData]()
+        DataService.refUsers.child(Auth.auth().currentUser!.uid).child("TimeSheet").child("years").child(String(dateTime.updateTime().year)).child(dateTime.updateTime().currentMonth).observeSingleEvent(of: .value, with: { (snapshot) -> Void in
+            
+            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot] else {return}
+            for days in snapshot {
+                
+                var pauseTime = ""
+                let day = days.key
+                let clockIn = days.childSnapshot(forPath: "Clock In").value as! String
+                let clockOut = days.childSnapshot(forPath: "Clock Out").value as! String
+                if days.childSnapshot(forPath: "pause").exists() {
+                    pauseTime = days.childSnapshot(forPath: "pause").value as! String
+                }
+                let capturedData = workDaysData(day: day, clocktIn: clockIn, clockOut: clockOut, pause: pauseTime )
+                
+                daysOfWork.append(capturedData)
+                //                print(["day": days.key, "Clock In" : days.childSnapshot(forPath: "Clock In").value as! String, "Clock Out" : days.childSnapshot(forPath: "Clock Out").value as! String])
+                //
+            }
+            print(daysOfWork)
+        })
+
+    }
+    
 }
 
