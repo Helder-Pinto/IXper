@@ -22,12 +22,14 @@
     let image = BehaviorRelay(value: nil as UIImage?)
     
     let actualTimeRelay = BehaviorRelay(value: nil as String?)
+    let datafromSheet = BehaviorRelay(value: [])
 
   
     
     init() {
         
         let userDataObservable = DataService.instance.getUserData(forUid: Auth.auth().currentUser!.uid).share()
+        
         
         userDataObservable
             .map { $0.fullname }
@@ -62,7 +64,6 @@
             .observeOn(MainScheduler.instance)
             .bind(to: image)
             .disposed(by: disposebag)
-        
         
         
     }

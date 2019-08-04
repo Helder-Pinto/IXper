@@ -28,16 +28,12 @@ class HomeViewController: UIViewController {
     private let viewModel = HomeViewModel()
     private let isTimerRunning = BehaviorRelay(value: false)
     private let isTimerPaused = BehaviorRelay(value: false)
-    
+    private var datafromtimesheet = [workDaysData]()
     private var counter = TimeInterval(0)
-    
-    // var timeSheetArray = [Dictionary<String, Any>]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        retreiveData()
-        //retrieve()
+
         Observable.interval(0.1, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_: Int) in
                 self?.updateTime()
@@ -80,7 +76,7 @@ class HomeViewController: UIViewController {
         populateProfile()
         
     }
-    
+
     private func populateProfile(){
         
         viewModel.fullname.asObservable()
@@ -136,14 +132,13 @@ class HomeViewController: UIViewController {
     @IBAction func clockInAndPause(_ sender: Any) {
         
         if let activity = clockInButton.currentTitle {
-            //            WorkingDataViewModel(activity: activity)
+           
             viewModel.createTimeSheet(activity: activity)
             
         }
         
         if !isTimerRunning.value {
-            // dataInAndOut (activity: clockInButton.currentTitle!)
-            
+      
             counter = 0
             isTimerRunning.accept(true)
             
@@ -161,7 +156,7 @@ class HomeViewController: UIViewController {
         isTimerRunning.accept(false)
         dateTime.stop()
         if let actualTime = actualTime.text {
-            print(actualTime)
+            
         }
         
     }
@@ -174,30 +169,38 @@ class HomeViewController: UIViewController {
         
     }
     
-    func retreiveData() {
-        var daysOfWork = [workDaysData]()
-        DataService.refUsers.child(Auth.auth().currentUser!.uid).child("TimeSheet").child("years").child(String(dateTime.updateTime().year)).child(dateTime.updateTime().currentMonth).observeSingleEvent(of: .value, with: { (snapshot) -> Void in
-            
-            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot] else {return}
-            for days in snapshot {
-                
-                var pauseTime = ""
-                let day = days.key
-                let clockIn = days.childSnapshot(forPath: "Clock In").value as! String
-                let clockOut = days.childSnapshot(forPath: "Clock Out").value as! String
-                if days.childSnapshot(forPath: "pause").exists() {
-                    pauseTime = days.childSnapshot(forPath: "pause").value as! String
-                }
-                let capturedData = workDaysData(day: day, clocktIn: clockIn, clockOut: clockOut, pause: pauseTime )
-                
-                daysOfWork.append(capturedData)
-                //                print(["day": days.key, "Clock In" : days.childSnapshot(forPath: "Clock In").value as! String, "Clock Out" : days.childSnapshot(forPath: "Clock Out").value as! String])
-                //
-            }
-            print(daysOfWork)
-        })
-
-    }
+//    func retreiveData() {
+//        var daysOfWork = [workDaysData]()
+//        DataService.refUsers.child(Auth.auth().currentUser!.uid).child("TimeSheet").child("years").child(String(dateTime.updateTime().year)).child(dateTime.updateTime().currentMonth).observe(.value, with: { (snapshot) -> Void in
+//
+//            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot] else {return}
+//            for days in snapshot {
+//
+//                var pauseTime = ""
+//                var clockOut = ""
+//                var clockIn = ""
+//
+//                let day = days.key
+//
+//                if days.childSnapshot(forPath: "Clock In").exists() {
+//                    clockIn = days.childSnapshot(forPath: "Clock In").value as! String
+//                }
+//                if days.childSnapshot(forPath: "Clock Out").exists() {
+//                    clockOut = days.childSnapshot(forPath: "Clock Out").value as! String
+//                }
+//                if days.childSnapshot(forPath: "Pause").exists() {
+//                    pauseTime = days.childSnapshot(forPath: "Pause").value as! String
+//
+//                }
+//                let capturedData = workDaysData(day: day, clocktIn: clockIn, clockOut: clockOut, pause: pauseTime )
+//
+//               // print(capturedData)
+//                daysOfWork.append(capturedData)
+//            }
+//            print(daysOfWork[1])
+//        })
+//
+//    }
     
 }
 
