@@ -42,10 +42,11 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         spreadsheet.dataSource = self
         spreadsheet.delegate = self
         
+        
         let date = datetime.updateTime()
         navTitle.title = "\(date.currentMonth.prefix(3)) \(date.year)"
         days = [Int](1...date.daysInCurrentMonth)
- 
+        
         
         spreadsheet.contentInset = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
         spreadsheet.intercellSpacing = CGSize(width: 4, height: 1)
@@ -56,21 +57,25 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         spreadsheet.register(Time.self, forCellWithReuseIdentifier: String(describing: Time.self))
         spreadsheet.register(DayTitleCell.self, forCellWithReuseIdentifier: String(describing: DayTitleCell.self))
         spreadsheet.register(ScheduleCell.self, forCellWithReuseIdentifier: String(describing: ScheduleCell.self))
-       
+        
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        DataService.refUsers.observe(.value) { (snapshot) in
+            self.timeSheetData.getSheetData { (workdata) in
+                self.realData = workdata
+                self.spreadsheet.reloadData()
+            }
+            
+        }
+        
         spreadsheet.flashScrollIndicators()
         
         
-        timeSheetData.getSheetData { (workdata) in
-            self.realData = workdata
-            print(self.realData)
-            print(self.realData.count)
-            print(self.realData[0].day)
-
-        }
+        
     }
     
     // MARK: DataSource
@@ -139,10 +144,22 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
             
             
         }
-        for i in 0..<data.count{
-            if case (1...(titles.count + 1), Int(data[i][0])! + 1) = (indexPath.column, indexPath.row){
+        for i in 0..<realData.count{
+            if case (1...(titles.count + 1), Int(realData[i].day)! + 1) = (indexPath.column, indexPath.row){
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: ScheduleCell.self), for: indexPath) as! ScheduleCell
-                let text = data[i][indexPath.column]
+                
+                var text = ""
+                
+                switch indexPath.column {
+                case 1:
+                    text = realData[i].clocktIn
+                case 2:
+                    text = realData[i].clockOut
+                case 3:
+                    text = realData[i].pause
+                default:
+                    break
+                }
                 if !text.isEmpty {
                     cell.label.text = text
                     let color = titlesColors[indexPath.column - 1]
@@ -160,21 +177,21 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
                 return cell
             }
             
-          
+            
         }
         
-                 if case (1...(titles.count + 1), 2...(days.count + 2)) = (indexPath.column, indexPath.row) { //indexpath.row == data[i][0]
-                    let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: ScheduleCell.self), for: indexPath) as! ScheduleCell
-        
-
-                            cell.label.text = nil
-                            cell.color = indexPath.row % 2 == 0 ? evenRowColor : oddRowColor
-                            cell.borders.top = .none
-                            cell.borders.bottom = .none
-
-        
-                    return cell
-                }
+        if case (1...(titles.count + 1), 2...(days.count + 2)) = (indexPath.column, indexPath.row) { //indexpath.row == data[i][0]
+            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: ScheduleCell.self), for: indexPath) as! ScheduleCell
+            
+            
+            cell.label.text = nil
+            cell.color = indexPath.row % 2 == 0 ? evenRowColor : oddRowColor
+            cell.borders.top = .none
+            cell.borders.bottom = .none
+            
+            
+            return cell
+        }
         return nil
     }
     
@@ -184,7 +201,7 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         
         
         print("Selected: (row: \(indexPath.row), column: \(indexPath.column))")
-      
+        
     }
     
     
