@@ -8,12 +8,13 @@
 
 import UIKit
 import SpreadsheetView
-
+import RxSwift
 
 class TimeSheetController: UIViewController, SpreadsheetViewDataSource, SpreadsheetViewDelegate {
     @IBOutlet var spreadsheet: SpreadsheetView!
     @IBOutlet weak var navTitle: UINavigationItem!
     
+    private let disposeBag = DisposeBag()
     private let timeSheetData = TimeSheetViewModel()
     private let datetime = DateTime()
     
@@ -30,7 +31,7 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     
     let evenRowColor = UIColor(red: 0.914, green: 0.914, blue: 0.906, alpha: 1)
     let oddRowColor: UIColor = .white
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         spreadsheet.dataSource = self
@@ -52,22 +53,20 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         spreadsheet.register(DayTitleCell.self, forCellWithReuseIdentifier: String(describing: DayTitleCell.self))
         spreadsheet.register(ScheduleCell.self, forCellWithReuseIdentifier: String(describing: ScheduleCell.self))
         
-        
-        
+        timeSheetData.getSheetData()
+            .subscribe(onNext: { [weak self] workdata in
+                self?.realData = workdata
+                self?.spreadsheet.reloadData()
+            })
+            .disposed(by: disposeBag)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        DataService.refUsers.observe(.value) { (snapshot) in
-            self.timeSheetData.getSheetData { (workdata) in
-                self.realData = workdata
-                self.spreadsheet.reloadData()
-            }
-            
-        }
+        
         
         spreadsheet.flashScrollIndicators()
-    
+        
     }
     
     // MARK: DataSource
@@ -149,6 +148,8 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
                     text = realData[i].clockOut
                 case 3:
                     text = realData[i].pause
+                case 4:
+                    text = realData[i].hours
                 default:
                     break
                 }
@@ -190,7 +191,6 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     /// Delegate
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, didSelectItemAt indexPath: IndexPath) {
-        
         
         print("Selected: (row: \(indexPath.row), column: \(indexPath.column))")
         

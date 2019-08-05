@@ -18,6 +18,7 @@ class DataService{
     
     private static var databaseReference = database
     private static var usersReference = database.child("users")
+    
   
      let dateTime = DateTime()
     
@@ -30,7 +31,7 @@ class DataService{
     }
     
     
-    //MARK: SEND DATA TO FIREBASE
+    //MARK: STORE DATA IN FIREBASE
     func createDBUser(uid: String, userData: Dictionary<String, Any>){
         
         DataService.refUsers.child(uid).updateChildValues(userData)
@@ -41,13 +42,9 @@ class DataService{
         DataService.refUsers.child(uid).updateChildValues(timeSheetData)
     }
     
-   // ["/TimeSheet/years/2019/june/31/clockIn":"9:00"]
     
     
-    
-    
-    
-    
+
     //MARK: GET DATA FROM FIREBASE
     func getUserData(forUid uid: String) -> Observable<User>{
         
@@ -83,6 +80,8 @@ class DataService{
         }
         
     }
+    
+    
     
     
     

@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct TimeSheetModel {
+struct TimeSheet {
     
     var totalHours: Int
     var totalDays: Int 
@@ -23,5 +23,5 @@ struct workDaysData {
     var clocktIn: String
     var clockOut: String
     var pause: String
-//    var hours: Int
+    var hours: String
 }

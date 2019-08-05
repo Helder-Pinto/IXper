@@ -68,12 +68,9 @@
         
     }
    
-    func createTimeSheet(activity: String) {
+    func createTimeSheet(activity: String, record: String) {
         
-        let year = String(dateTime.updateTime().year)
-        
-        
-        
+        let year = String(dateTime.updateTime().year)        
         let month = dateTime.updateTime().currentMonth
         let day = String(dateTime.updateTime().day)
         let actualTime = dateTime.updateTime().actualTime
@@ -84,7 +81,7 @@
         
         if let uid = Auth.auth().currentUser?.uid {
             DataService.instance.createTimeSheet(uid: uid, timeSheetData:
-               ["/TimeSheet/years/\(year)/\(month)/\(day)/\(activity)":"\(actualTime)"])
+               ["/TimeSheet/years/\(year)/\(month)/\(day)/\(activity)":"\(record)"])
         }
     }
     

@@ -30,7 +30,6 @@
 		D699923622F1C842001E942D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699923522F1C842001E942D /* HomeViewController.swift */; };
 		D6B5A32622EEF61800C51C85 /* TimeSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B5A32522EEF61800C51C85 /* TimeSheetController.swift */; };
 		D6B5A32822EF1CBE00C51C85 /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B5A32722EF1CBE00C51C85 /* Cells.swift */; };
-		D6B8B48422F426E0004EF459 /* workTimeCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8B48322F426E0004EF459 /* workTimeCapture.swift */; };
 		D6B8B48622F4C428004EF459 /* TimeSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8B48522F4C428004EF459 /* TimeSheetViewModel.swift */; };
 		D6B8B48822F5A1C1004EF459 /* TimeSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B8B48722F5A1C1004EF459 /* TimeSheetModel.swift */; };
 		D6DF293122F1BFC60022F8E7 /* ShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DF293022F1BFC50022F8E7 /* ShadowButton.swift */; };
@@ -89,7 +88,6 @@
 		D699923522F1C842001E942D /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D6B5A32522EEF61800C51C85 /* TimeSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSheetController.swift; sourceTree = "<group>"; };
 		D6B5A32722EF1CBE00C51C85 /* Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
-		D6B8B48322F426E0004EF459 /* workTimeCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = workTimeCapture.swift; sourceTree = "<group>"; };
 		D6B8B48522F4C428004EF459 /* TimeSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSheetViewModel.swift; sourceTree = "<group>"; };
 		D6B8B48722F5A1C1004EF459 /* TimeSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSheetModel.swift; sourceTree = "<group>"; };
 		D6DF293022F1BFC50022F8E7 /* ShadowButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowButton.swift; sourceTree = "<group>"; };
@@ -232,7 +230,6 @@
 			children = (
 				D61D4A1022E8E4C300A1350B /* User.swift */,
 				D6737BB522EADC59005B8F5A /* DateTime.swift */,
-				D6B8B48322F426E0004EF459 /* workTimeCapture.swift */,
 				D6B8B48722F5A1C1004EF459 /* TimeSheetModel.swift */,
 			);
 			path = Model;
@@ -533,7 +530,6 @@
 				D613994B22E5A94700D4FC83 /* DataService.swift in Sources */,
 				D699923322F1C2A4001E942D /* EmailViewController.swift in Sources */,
 				D61D4A1122E8E4C300A1350B /* User.swift in Sources */,
-				D6B8B48422F426E0004EF459 /* workTimeCapture.swift in Sources */,
 				D6F8855F22F05E2700BDADDA /* HomeViewModel.swift in Sources */,
 				D6B8B48822F5A1C1004EF459 /* TimeSheetModel.swift in Sources */,
 				D6B5A32622EEF61800C51C85 /* TimeSheetController.swift in Sources */,

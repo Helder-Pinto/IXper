@@ -12,6 +12,7 @@ import RxCocoa
 
 class DateTime {
     
+   
     //    set timezone formatter
     private var clockIn: Date?
     
@@ -98,7 +99,6 @@ class DateTime {
     
     
     func updateTime() -> (actualTime: String, currentDayOfTheWeek: String, currentMonth: String, day: Int, previousMonth: String, nextMonth: String, year: Int, daysInCurrentMonth: Int){
-        
         let date = Date()
         let calendar = Calendar.current
         let monthUnit = calendar.component(.month, from: date)
@@ -110,8 +110,8 @@ class DateTime {
         var actualTime = ""
         let previousMonth = month(of: monthUnit - 1)
         let nextMonth = month(of: monthUnit + 1)
-  
- 
+        
+        
         
         // Calculate start and end of the current year (or month with `.month`):
         let interval = calendar.dateInterval(of: .month, for: date)!
@@ -132,6 +132,21 @@ class DateTime {
         let currentDayOfTheWeek = dayOfTheWeek(for: weekday)
         
         return (actualTime, currentDayOfTheWeek, currentMonth, day, previousMonth, nextMonth, year, daysInCurrentMonth)
+    }
+    
+    func getDateDiff(start: String, end: String) -> String  {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let timeThen = dateFormatter.date(from: start)
+        let timeNow = dateFormatter.date(from: end)
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.hour, .minute], from: timeThen!, to: timeNow!)
+        
+        if  let minute = dateComponents.minute, let hour = dateComponents.hour{
+            return "\(hour):0\(minute)"
+        }
+        return ""
     }
     
 }

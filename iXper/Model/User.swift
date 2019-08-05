@@ -9,17 +9,11 @@
 
 import UIKit
 
-class User{
+struct User{
     
-    public private(set) var fullname: String
-    public private(set) var position: String
-    public private(set) var picUrl: String
-   
+    var fullname: String
+    var position: String
+    var picUrl: String
+    //var timeSheet: TimeSheetModel
     
-    
-    init(fullname: String, position: String, picUrl: String){
-        self.fullname = fullname
-        self.position = position
-        self.picUrl = picUrl
-    }
 }
