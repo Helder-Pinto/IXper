@@ -23,4 +23,5 @@ struct workDaysData {
     var clocktIn: String
     var clockOut: String
     var pause: String
+//    var hours: Int
 }

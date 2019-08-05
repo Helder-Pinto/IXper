@@ -19,7 +19,7 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     
     var counter = 0
     let totalTitles = ["Total Days: 15", "Total Hours: 80", "", "CutOff Day: 24"]
-    let titles = ["Clock in","Clock out", "Break"] //, "Act. Hours"
+    let titles = ["Clock in","Clock out", "Break", "Hours"] 
     let titlesColors = [UIColor(red: 0.200, green: 0.620, blue: 0.565, alpha: 1),
                         UIColor(red: 0.918, green: 0.224, blue: 0.153, alpha: 1),
                         UIColor(red: 0.106, green: 0.541, blue: 0.827, alpha: 1),
@@ -30,13 +30,7 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     
     let evenRowColor = UIColor(red: 0.914, green: 0.914, blue: 0.906, alpha: 1)
     let oddRowColor: UIColor = .white
-    let data = [
-        ["1", "12:00", "13:00", "1 hour"],
-        ["2", "12:00", "13:00", "2 hours"],
-        ["3", "fggfh", "fhf", ""],
-        ["31", "fdhhf", "dfghfg", "fdhg"]
-    ]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         spreadsheet.dataSource = self
@@ -73,9 +67,7 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         }
         
         spreadsheet.flashScrollIndicators()
-        
-        
-        
+    
     }
     
     // MARK: DataSource
@@ -207,21 +199,3 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     
 }
 
-//
-//for i in 0..<realData.count{
-//    if case (1...(titles.count + 1), Int(realData[i].day)! + 1) = (indexPath.column, indexPath.row){
-//        let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: ScheduleCell.self), for: indexPath) as! ScheduleCell
-//        
-//        var text = ""
-//        
-//        switch indexPath.column {
-//        case 1:
-//            text = realData[i].clocktIn
-//        case 2:
-//            text = realData[i].clockOut
-//        case 3:
-//            text = realData[i].clockOut
-//        default:
-//            break
-//}
-//                

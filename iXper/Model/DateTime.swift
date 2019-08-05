@@ -134,6 +134,6 @@ class DateTime {
         return (actualTime, currentDayOfTheWeek, currentMonth, day, previousMonth, nextMonth, year, daysInCurrentMonth)
     }
     
-    
 }
 
+//let dateComponents = calendar.dateComponents([Calendar.Component.second], from: start, to: end).second

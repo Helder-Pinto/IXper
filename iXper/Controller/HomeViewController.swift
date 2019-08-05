@@ -152,6 +152,7 @@ class HomeViewController: UIViewController {
         
         if let activity = clockOutButton.currentTitle {
             viewModel.createTimeSheet(activity: activity)
+            viewModel.createTimeSheet(activity: "Hours")
         }
         isTimerRunning.accept(false)
         dateTime.stop()
@@ -169,38 +170,6 @@ class HomeViewController: UIViewController {
         
     }
     
-//    func retreiveData() {
-//        var daysOfWork = [workDaysData]()
-//        DataService.refUsers.child(Auth.auth().currentUser!.uid).child("TimeSheet").child("years").child(String(dateTime.updateTime().year)).child(dateTime.updateTime().currentMonth).observe(.value, with: { (snapshot) -> Void in
-//
-//            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot] else {return}
-//            for days in snapshot {
-//
-//                var pauseTime = ""
-//                var clockOut = ""
-//                var clockIn = ""
-//
-//                let day = days.key
-//
-//                if days.childSnapshot(forPath: "Clock In").exists() {
-//                    clockIn = days.childSnapshot(forPath: "Clock In").value as! String
-//                }
-//                if days.childSnapshot(forPath: "Clock Out").exists() {
-//                    clockOut = days.childSnapshot(forPath: "Clock Out").value as! String
-//                }
-//                if days.childSnapshot(forPath: "Pause").exists() {
-//                    pauseTime = days.childSnapshot(forPath: "Pause").value as! String
-//
-//                }
-//                let capturedData = workDaysData(day: day, clocktIn: clockIn, clockOut: clockOut, pause: pauseTime )
-//
-//               // print(capturedData)
-//                daysOfWork.append(capturedData)
-//            }
-//            print(daysOfWork[1])
-//        })
-//
-//    }
-    
+
 }
 
