@@ -10,10 +10,8 @@ import Foundation
 
 
 struct TimeSheet {
-    
     var totalHours: Int
     var totalDays: Int
-
 }
 
 struct workDaysData {

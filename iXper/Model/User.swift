@@ -14,6 +14,4 @@ struct User{
     var fullname: String
     var position: String
     var picUrl: String
-    //var timeSheet: TimeSheetModel
-    
 }

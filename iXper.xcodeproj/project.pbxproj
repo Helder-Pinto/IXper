@@ -213,9 +213,9 @@
 		D68EBA6F22E58D8E009616FD /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D613994C22E5ABA300D4FC83 /* AuthService.swift */,
 				D613994A22E5A94700D4FC83 /* DataService.swift */,
 				D64C1A1C22F9FE3B00146225 /* DateTimeService.swift */,
-				D613994C22E5ABA300D4FC83 /* AuthService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";

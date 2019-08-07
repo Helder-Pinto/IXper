@@ -13,7 +13,6 @@ import RxCocoa
 struct ElapsedTime {
     
     private var clockIn: Date?
-    
     var elapsedTime: TimeInterval{
         if let clockIn = self.clockIn {
             return -clockIn.timeIntervalSinceNow
@@ -22,7 +21,6 @@ struct ElapsedTime {
             return 0
         }
     }
-    
     var isRunning: Bool{
         return clockIn != nil
     }
@@ -34,10 +32,6 @@ struct ElapsedTime {
     mutating func stop(){
         clockIn = nil
     }
-    
-   
-
-    
 }
 
 

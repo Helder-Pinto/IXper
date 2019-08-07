@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 struct DateTimeService {
     let date = Date()
@@ -31,4 +32,28 @@ struct DateTimeService {
     var time: String {
         dateFormatter.dateFormat = "HH:mm"
         return dateFormatter.string(from: Date())}
+    
+    
+    //    MARK: Time Difference
+    func timeDiff (start: String, end: String) -> Observable<String> {
+        
+        return Observable<String>.create{ observer in
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            let timeThen = dateFormatter.date(from: start)
+            let timeNow = dateFormatter.date(from: end)
+            let calendar = Calendar.current
+            let dateComponents = calendar.dateComponents([.hour, .minute], from: timeThen!, to: timeNow!)
+            if  let minute = dateComponents.minute, let hour = dateComponents.hour{
+                switch minute{
+                case 0..<10:
+                    observer.onNext("\(hour):0\(minute)")
+                default:
+                    observer.onNext("\(hour):\(minute)")
+                }
+                
+            }
+            return Disposables.create()
+        }
+    }
 }

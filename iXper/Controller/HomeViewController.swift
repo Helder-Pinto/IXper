@@ -21,7 +21,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var todaysDate: UILabel!
     @IBOutlet weak var clockInButton: ShadowButton!
     @IBOutlet weak var clockOutButton: ShadowButton!
-    
+
     private let datetime = DateTimeService()
     private let disposebag = DisposeBag()
     private let formatter = DateFormatter()
@@ -36,7 +36,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         Observable.interval(0.1, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_: Int) in
                 self?.updateTime()
@@ -134,6 +134,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func clockInAndPause(_ sender: Any) {
+ 
         if let activity = clockInButton.currentTitle {
             viewModel.createTimeSheet(activity: activity, record: datetime.time)
         }
@@ -147,10 +148,14 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func clockOut(_ sender: Any) {
+
         if let activity = clockOutButton.currentTitle {
             viewModel.createTimeSheet(activity: activity, record: datetime.time)
-            let record = viewModel.getDateDiff(start: timeThen!, end: datetime.time)
-            viewModel.createTimeSheet(activity: "Hours", record: record)
+            datetime.timeDiff(start: timeThen!, end: datetime.time)
+                .subscribe(onNext: {  [weak self] hour in
+                    self?.viewModel.createTimeSheet(activity: "Hours", record: hour)
+                })
+                .disposed(by: disposebag)
         }
         isTimerRunning.accept(false)
         elapsed.stop()

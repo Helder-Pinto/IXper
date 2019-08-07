@@ -21,13 +21,9 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     private let timeSheetData = TimeSheetViewModel()
     private let datetime = DateTimeService()
     
-    private let totalTitles = ["Total Days: 15", "Total Hours: 80", "", "CutOff Day: 24"]
-    private let titles = ["Clock in","Clock out", "Break", "Hours"]
-    private let titlesColors = [UIColor(red: 0.200, green: 0.620, blue: 0.565, alpha: 1),
-                        UIColor(red: 0.918, green: 0.224, blue: 0.153, alpha: 1),
-                        UIColor(red: 0.106, green: 0.541, blue: 0.827, alpha: 1),
-                        UIColor(red: 0.953, green: 0.498, blue: 0.098, alpha: 1)
-    ]
+    private var totalTitles = [String]()
+    private var titles = [String]()
+    private var titlesColors = [UIColor]()
     private var days = [Int]()
     private var realData = [workDaysData]()
     
@@ -38,17 +34,22 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         super.viewDidLoad()
         spreadsheet.dataSource = self
         spreadsheet.delegate = self
-        
-        
+
         
         navTitle.title = "\(datetime.month.prefix(3)) \(datetime.year)"
         days = [Int](1...datetime.monthDays)
         
+        totalTitles = ["Total Days: 15", "Total Hours: 80", "", "CutOff Day: 24"]
+        titles = ["Clock in","Clock out", "Break", "Hours"]
+        titlesColors = [UIColor(red: 0.200, green: 0.620, blue: 0.565, alpha: 1),
+                        UIColor(red: 0.918, green: 0.224, blue: 0.153, alpha: 1),
+                        UIColor(red: 0.106, green: 0.541, blue: 0.827, alpha: 1),
+                        UIColor(red: 0.953, green: 0.498, blue: 0.098, alpha: 1)
+        ]
         
         spreadsheet.contentInset = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
         spreadsheet.intercellSpacing = CGSize(width: 4, height: 1)
         spreadsheet.gridStyle = .none
-        
         spreadsheet.register(DatesCell.self, forCellWithReuseIdentifier: String(describing: DatesCell.self))
         spreadsheet.register(TimeTitleCell.self, forCellWithReuseIdentifier: String(describing: TimeTitleCell.self))
         spreadsheet.register(Time.self, forCellWithReuseIdentifier: String(describing: Time.self))
@@ -61,18 +62,16 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
                 self?.spreadsheet.reloadData()
             })
             .disposed(by: disposeBag)
+        
+        populateSheet()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
         spreadsheet.flashScrollIndicators()
-        
     }
     
 // MARK: DataSource
-    
     func numberOfColumns(in spreadsheetView: SpreadsheetView) -> Int {
         return 1 + titles.count
     }
@@ -135,7 +134,7 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
             cell.backgroundColor = indexPath.row % 2 == 0 ? evenRowColor : oddRowColor
             return cell
             
-            
+ 
         }
         for i in 0..<realData.count{
             if case (1...(titles.count + 1), Int(realData[i].day)! + 1) = (indexPath.column, indexPath.row){
@@ -188,9 +187,12 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     }
     
     /// Delegate
-    
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, didSelectItemAt indexPath: IndexPath) {
         print("Selected: (row: \(indexPath.row), column: \(indexPath.column))")
+    }
+    
+    func populateSheet() {
+        
     }
 }
 
