@@ -15,7 +15,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--HomeScreen-->
+        <!--Home-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController storyboardIdentifier="HomeScreen" id="9pv-A4-QxB" customClass="HomeViewController" customModule="iXper" customModuleProvider="target" sceneMemberID="viewController">
@@ -105,8 +105,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Wednesday, July 24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0Z-PN-ch6">
-                                        <rect key="frame" x="130.5" y="63" width="153" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Wednesday, July 24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0Z-PN-ch6">
+                                        <rect key="frame" x="114" y="63" width="200" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -177,7 +177,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="HomeScreen" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="20-1" selectedImage="20-1" id="acW-dT-cKf">
+                        <color key="badgeColor" red="0.18823529410000001" green="0.57254901960000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="actualTime" destination="9qf-U1-S9U" id="0v4-W8-3cg"/>
                         <outlet property="clockInButton" destination="lyW-lK-l7M" id="EZo-kE-D9Q"/>
@@ -375,6 +377,7 @@
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.18823529410000001" green="0.57254901960000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
@@ -417,11 +420,13 @@
             </objects>
             <point key="canvasLocation" x="1773.913043478261" y="451.33928571428567"/>
         </scene>
-        <!--Item-->
+        <!--Timesheet-->
         <scene sceneID="sao-kp-Hc1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="X85-pq-XNg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="VjN-Ed-55S"/>
+                    <tabBarItem key="tabBarItem" title="Timesheet" image="20" selectedImage="20" id="VjN-Ed-55S">
+                        <color key="badgeColor" red="0.18823529410000001" green="0.57254901960000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ffV-SN-RxN">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -439,10 +444,11 @@
     </scenes>
     <resources>
         <image name="1920_metronom-praha" width="1920" height="1080"/>
+        <image name="20" width="20" height="20"/>
+        <image name="20-1" width="20" height="20"/>
         <image name="SAP LOGO" width="152" height="65"/>
         <image name="email_PNG20" width="170.5" height="170.5"/>
         <image name="facebook_logos_PNG19762" width="170.5" height="170.5"/>
-        <image name="first" width="30" height="30"/>
         <image name="google_PNG19635" width="375" height="375"/>
         <image name="twitter_PNG28" width="170.5" height="170.5"/>
     </resources>

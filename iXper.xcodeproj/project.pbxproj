@@ -14,9 +14,10 @@
 		D613994D22E5ABA300D4FC83 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D613994C22E5ABA300D4FC83 /* AuthService.swift */; };
 		D61D4A0F22E8E0A100A1350B /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61D4A0E22E8E0A100A1350B /* ShadowView.swift */; };
 		D61D4A1122E8E4C300A1350B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61D4A1022E8E4C300A1350B /* User.swift */; };
-		D62AB9D922E5A62B008D89B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D62AB9D822E5A62B008D89B8 /* GoogleService-Info.plist */; };
+		D64C1A1D22F9FE3B00146225 /* DateTimeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64C1A1C22F9FE3B00146225 /* DateTimeService.swift */; };
+		D65E3D8422F87EF500A5F021 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D65E3D8322F87EF500A5F021 /* GoogleService-Info.plist */; };
 		D6737BB422E9FA42005B8F5A /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6737BB322E9FA42005B8F5A /* Spinner.swift */; };
-		D6737BB622EADC59005B8F5A /* DateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6737BB522EADC59005B8F5A /* DateTime.swift */; };
+		D6737BB622EADC59005B8F5A /* ElapsedTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6737BB522EADC59005B8F5A /* ElapsedTime.swift */; };
 		D68EBA4022E4DFEB009616FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68EBA3F22E4DFEB009616FD /* AppDelegate.swift */; };
 		D68EBA4722E4DFEB009616FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D68EBA4522E4DFEB009616FD /* Main.storyboard */; };
 		D68EBA4922E4DFEB009616FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D68EBA4822E4DFEB009616FD /* Assets.xcassets */; };
@@ -66,9 +67,10 @@
 		D613994C22E5ABA300D4FC83 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		D61D4A0E22E8E0A100A1350B /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		D61D4A1022E8E4C300A1350B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		D62AB9D822E5A62B008D89B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D64C1A1C22F9FE3B00146225 /* DateTimeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeService.swift; sourceTree = "<group>"; };
+		D65E3D8322F87EF500A5F021 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D6737BB322E9FA42005B8F5A /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
-		D6737BB522EADC59005B8F5A /* DateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTime.swift; sourceTree = "<group>"; };
+		D6737BB522EADC59005B8F5A /* ElapsedTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElapsedTime.swift; sourceTree = "<group>"; };
 		D68EBA3C22E4DFEB009616FD /* iXper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iXper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D68EBA3F22E4DFEB009616FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D68EBA4622E4DFEB009616FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -183,8 +185,8 @@
 				D68EBA4522E4DFEB009616FD /* Main.storyboard */,
 				D68EBA4822E4DFEB009616FD /* Assets.xcassets */,
 				D68EBA4A22E4DFEB009616FD /* LaunchScreen.storyboard */,
+				D65E3D8322F87EF500A5F021 /* GoogleService-Info.plist */,
 				D68EBA4D22E4DFEB009616FD /* Info.plist */,
-				D62AB9D822E5A62B008D89B8 /* GoogleService-Info.plist */,
 				D68EBA7A22E59886009616FD /* Fonts */,
 			);
 			path = iXper;
@@ -212,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				D613994A22E5A94700D4FC83 /* DataService.swift */,
+				D64C1A1C22F9FE3B00146225 /* DateTimeService.swift */,
 				D613994C22E5ABA300D4FC83 /* AuthService.swift */,
 			);
 			path = Services;
@@ -229,7 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				D61D4A1022E8E4C300A1350B /* User.swift */,
-				D6737BB522EADC59005B8F5A /* DateTime.swift */,
+				D6737BB522EADC59005B8F5A /* ElapsedTime.swift */,
 				D6B8B48722F5A1C1004EF459 /* TimeSheetModel.swift */,
 			);
 			path = Model;
@@ -268,8 +271,8 @@
 		D6F8855D22F05E2700BDADDA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				D6F8855E22F05E2700BDADDA /* HomeViewModel.swift */,
 				D6F8856022F05E4B00BDADDA /* AuthViewModel.swift */,
+				D6F8855E22F05E2700BDADDA /* HomeViewModel.swift */,
 				D6B8B48522F4C428004EF459 /* TimeSheetViewModel.swift */,
 			);
 			path = ViewModel;
@@ -385,11 +388,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D68EBA4C22E4DFEB009616FD /* LaunchScreen.storyboard in Resources */,
-				D62AB9D922E5A62B008D89B8 /* GoogleService-Info.plist in Resources */,
 				D68EBA7922E5987F009616FD /* MuseoSans_500_Italic.otf in Resources */,
 				D68EBA4922E4DFEB009616FD /* Assets.xcassets in Resources */,
 				D68EBA7822E5987F009616FD /* MuseoSans_500.otf in Resources */,
 				D68EBA4722E4DFEB009616FD /* Main.storyboard in Resources */,
+				D65E3D8422F87EF500A5F021 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,6 +521,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D68EBA4022E4DFEB009616FD /* AppDelegate.swift in Sources */,
+				D64C1A1D22F9FE3B00146225 /* DateTimeService.swift in Sources */,
 				D61D4A0F22E8E0A100A1350B /* ShadowView.swift in Sources */,
 				D6F8856122F05E4B00BDADDA /* AuthViewModel.swift in Sources */,
 				D613994D22E5ABA300D4FC83 /* AuthService.swift in Sources */,
@@ -526,7 +530,7 @@
 				D6B5A32822EF1CBE00C51C85 /* Cells.swift in Sources */,
 				D699923422F1C2A4001E942D /* AuthViewController.swift in Sources */,
 				D6B8B48622F4C428004EF459 /* TimeSheetViewModel.swift in Sources */,
-				D6737BB622EADC59005B8F5A /* DateTime.swift in Sources */,
+				D6737BB622EADC59005B8F5A /* ElapsedTime.swift in Sources */,
 				D613994B22E5A94700D4FC83 /* DataService.swift in Sources */,
 				D699923322F1C2A4001E942D /* EmailViewController.swift in Sources */,
 				D61D4A1122E8E4C300A1350B /* User.swift in Sources */,

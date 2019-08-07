@@ -12,13 +12,11 @@ import Foundation
 struct TimeSheet {
     
     var totalHours: Int
-    var totalDays: Int 
-    
+    var totalDays: Int
 
 }
 
 struct workDaysData {
-    
     var day: String
     var clocktIn: String
     var clockOut: String

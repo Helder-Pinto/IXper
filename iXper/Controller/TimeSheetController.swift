@@ -11,26 +11,28 @@ import SpreadsheetView
 import RxSwift
 
 class TimeSheetController: UIViewController, SpreadsheetViewDataSource, SpreadsheetViewDelegate {
+    
+//IBoutlets
     @IBOutlet var spreadsheet: SpreadsheetView!
     @IBOutlet weak var navTitle: UINavigationItem!
     
+//Variables
     private let disposeBag = DisposeBag()
     private let timeSheetData = TimeSheetViewModel()
-    private let datetime = DateTime()
+    private let datetime = DateTimeService()
     
-    var counter = 0
-    let totalTitles = ["Total Days: 15", "Total Hours: 80", "", "CutOff Day: 24"]
-    let titles = ["Clock in","Clock out", "Break", "Hours"] 
-    let titlesColors = [UIColor(red: 0.200, green: 0.620, blue: 0.565, alpha: 1),
+    private let totalTitles = ["Total Days: 15", "Total Hours: 80", "", "CutOff Day: 24"]
+    private let titles = ["Clock in","Clock out", "Break", "Hours"]
+    private let titlesColors = [UIColor(red: 0.200, green: 0.620, blue: 0.565, alpha: 1),
                         UIColor(red: 0.918, green: 0.224, blue: 0.153, alpha: 1),
                         UIColor(red: 0.106, green: 0.541, blue: 0.827, alpha: 1),
                         UIColor(red: 0.953, green: 0.498, blue: 0.098, alpha: 1)
     ]
-    var days = [Int]()
-    var realData = [workDaysData]()
+    private var days = [Int]()
+    private var realData = [workDaysData]()
     
-    let evenRowColor = UIColor(red: 0.914, green: 0.914, blue: 0.906, alpha: 1)
-    let oddRowColor: UIColor = .white
+    private let evenRowColor = UIColor(red: 0.914, green: 0.914, blue: 0.906, alpha: 1)
+    private let oddRowColor: UIColor = .white
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +40,9 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         spreadsheet.delegate = self
         
         
-        let date = datetime.updateTime()
-        navTitle.title = "\(date.currentMonth.prefix(3)) \(date.year)"
-        days = [Int](1...date.daysInCurrentMonth)
+        
+        navTitle.title = "\(datetime.month.prefix(3)) \(datetime.year)"
+        days = [Int](1...datetime.monthDays)
         
         
         spreadsheet.contentInset = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
@@ -69,7 +71,7 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         
     }
     
-    // MARK: DataSource
+// MARK: DataSource
     
     func numberOfColumns(in spreadsheetView: SpreadsheetView) -> Int {
         return 1 + titles.count
@@ -173,15 +175,12 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
             
         }
         
-        if case (1...(titles.count + 1), 2...(days.count + 2)) = (indexPath.column, indexPath.row) { //indexpath.row == data[i][0]
+        if case (1...(titles.count + 1), 2...(days.count + 2)) = (indexPath.column, indexPath.row) {
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: ScheduleCell.self), for: indexPath) as! ScheduleCell
-            
-            
             cell.label.text = nil
             cell.color = indexPath.row % 2 == 0 ? evenRowColor : oddRowColor
             cell.borders.top = .none
             cell.borders.bottom = .none
-            
             
             return cell
         }
@@ -191,11 +190,7 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     /// Delegate
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, didSelectItemAt indexPath: IndexPath) {
-        
         print("Selected: (row: \(indexPath.row), column: \(indexPath.column))")
-        
     }
-    
-    
 }
 

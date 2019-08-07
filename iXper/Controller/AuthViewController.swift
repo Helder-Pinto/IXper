@@ -25,11 +25,11 @@ class AuthViewController: UIViewController, GIDSignInUIDelegate {
         
         viewModel.currentUser
             .distinctUntilChanged()
-            .subscribe(onNext: { user in
+            .subscribe(onNext: { [weak self] user in
                 if user != nil {
-                    self.performSegue(withIdentifier: "homeScreen", sender: nil)
+                    self?.performSegue(withIdentifier: "homeScreen", sender: nil)
                 } else {
-                    self.presentedViewController?.dismiss(animated: true, completion: nil)
+                    self?.presentedViewController?.dismiss(animated: true, completion: nil)
                 }
             })
             .disposed(by: disposeBag)

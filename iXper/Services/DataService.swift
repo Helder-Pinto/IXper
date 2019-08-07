@@ -18,10 +18,7 @@ class DataService{
     
     private static var databaseReference = database
     private static var usersReference = database.child("users")
-    
-  
-     let dateTime = DateTime()
-    
+
     static var ref: DatabaseReference {
         return databaseReference
     }
@@ -39,12 +36,9 @@ class DataService{
     
     func createTimeSheet(uid: String, timeSheetData: Dictionary<String, Any>){
         
-        DataService.refUsers.child(uid).updateChildValues(timeSheetData)
+        DataService.refUsers.child(uid).child("TimeSheet").child("years").updateChildValues(timeSheetData)
     }
     
-    
-    
-
     //MARK: GET DATA FROM FIREBASE
     func getUserData(forUid uid: String) -> Observable<User>{
         
@@ -59,7 +53,7 @@ class DataService{
             return Disposables.create()
         }
     }
-
+    
     
     private static func getUserData(forUid uid: String, onSuccess: @escaping (_ user: User ) -> Void, onError: @escaping (_: Error) -> Void) {
         
@@ -80,47 +74,5 @@ class DataService{
         }
         
     }
-    
-    
-    
-    
-    
-    //    func getSheetData() -> Observable<[workDaysData]> {
-    //
-    //        return Observable.create({ (observer) -> Disposable in
-    //            DataService.getSheetData(handler: { (workDaysData) in
-    //                observer.onNext(workDaysData)
-    //                observer.onCompleted()
-    //            }) { error in
-    //                observer.onError(error)
-    //                observer.onCompleted()
-    //            }
-    //            return Disposables.create()
-    //
-    //        })
-    //    }
-////    , onError: @escaping (_: Error) -> Void) 
-//    func getSheetData(forUid uid: String, handler: @escaping (_ daysOfWorkArray : [workDaysData]) -> ()){
-//       
-//        var daysOfWorkArray = [workDaysData]()
-//        DataService.refUsers.child(uid).child("TimeSheet").child("years").child(String(dateTime.updateTime().year)).child(dateTime.updateTime().currentMonth).observe(.value, with: { (snapshot) -> Void in
-//            
-//            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot] else {return}
-//            for days in snapshot {
-//                
-//                var pauseTime = ""
-//                let day = days.key
-//                let clockIn = days.childSnapshot(forPath: "Clock In").value as! String
-//                let clockOut = days.childSnapshot(forPath: "Clock Out").value as! String
-//                if days.childSnapshot(forPath: "Pause").exists() {
-//                    pauseTime = days.childSnapshot(forPath: "Pause").value as! String
-//                }
-//                let capturedData = workDaysData(day: day, clocktIn: clockIn, clockOut: clockOut, pause: pauseTime )
-//                daysOfWorkArray.append(capturedData)
-//            }
-//        })
-//        handler(daysOfWorkArray)
-//        
-//    }
     
 }

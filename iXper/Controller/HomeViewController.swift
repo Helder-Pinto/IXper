@@ -22,15 +22,17 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var clockInButton: ShadowButton!
     @IBOutlet weak var clockOutButton: ShadowButton!
     
+    private let datetime = DateTimeService()
     private let disposebag = DisposeBag()
-    private let dateTime = DateTime()
     private let formatter = DateFormatter()
     private let viewModel = HomeViewModel()
     private let isTimerRunning = BehaviorRelay(value: false)
     private let isTimerPaused = BehaviorRelay(value: false)
+    
     private var datafromtimesheet = [workDaysData]()
     private var counter = TimeInterval(0)
     private var timeThen: String?
+    private var elapsed = ElapsedTime()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +77,7 @@ class HomeViewController: UIViewController {
         
         showSpinner(onView: view)
         populateProfile()
+        elapsedTime.text = "00:00:00"
         
     }
     
@@ -85,11 +88,6 @@ class HomeViewController: UIViewController {
                 self?.userName.text = fullname
             })
             .disposed(by: disposebag)
-        //        viewModel.yearRelay.asObservable()
-        //            .subscribe(onNext: {  [weak self] year in
-        //                self?.userName.text = year
-        //            })
-        //            .disposed(by: disposebag)
         
         viewModel.position.asObservable()
             .subscribe(onNext:{ [weak self] position in
@@ -117,9 +115,8 @@ class HomeViewController: UIViewController {
     }
     
     @objc func updateTime(){
-        let date = dateTime.updateTime()
-        actualTime.text = date.actualTime
-        todaysDate.text = date.currentDayOfTheWeek + ", \(date.currentMonth) \(date.day)"
+        actualTime.text = datetime.time
+        todaysDate.text = datetime.weekDay + ", \(datetime.month.prefix(3)) \(datetime.day)"
     }
     
     
@@ -131,51 +128,34 @@ class HomeViewController: UIViewController {
     }
     
     
-    //    MARK: IBACTIONS
-    
+    //    MARK: IBactions
     @IBAction func logOutBtn(_ sender: Any) {
         AuthService.instance.logoutUser()
     }
     
     @IBAction func clockInAndPause(_ sender: Any) {
-        
         if let activity = clockInButton.currentTitle {
-            viewModel.createTimeSheet(activity: activity, record: dateTime.updateTime().actualTime)
+            viewModel.createTimeSheet(activity: activity, record: datetime.time)
         }
-        
-
-        
         if !isTimerRunning.value {
             counter = 0
             isTimerRunning.accept(true)
-            timeThen = dateTime.updateTime().actualTime
-           
-            
+            timeThen = datetime.time
         } else {
             isTimerPaused.accept(!isTimerPaused.value)
         }
     }
     
-    
     @IBAction func clockOut(_ sender: Any) {
-        
         if let activity = clockOutButton.currentTitle {
-
-            viewModel.createTimeSheet(activity: activity, record: dateTime.updateTime().actualTime)
-           
-            let record = dateTime.getDateDiff(start: timeThen!, end: dateTime.updateTime().actualTime)
+            viewModel.createTimeSheet(activity: activity, record: datetime.time)
+            let record = viewModel.getDateDiff(start: timeThen!, end: datetime.time)
             viewModel.createTimeSheet(activity: "Hours", record: record)
-            
         }
         isTimerRunning.accept(false)
-        dateTime.stop()
-
+        elapsed.stop()
+        elapsedTime.text = "00:00:00"
         
     }
-    
-    
-  
-    
-    
 }
 
