@@ -51,9 +51,10 @@ struct DateTimeService {
                 default:
                     observer.onNext("\(hour):\(minute)")
                 }
-                
             }
             return Disposables.create()
         }
     }
+    
+   
 }

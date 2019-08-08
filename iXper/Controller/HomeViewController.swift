@@ -11,7 +11,7 @@ import Firebase
 import RxSwift
 import RxCocoa
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var userName: UILabel!
@@ -36,6 +36,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         Observable.interval(0.1, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_: Int) in
@@ -113,21 +114,19 @@ class HomeViewController: UIViewController {
             .disposed(by: disposebag)
         
     }
-    
+  
     @objc func updateTime(){
         actualTime.text = datetime.time
         todaysDate.text = datetime.weekDay + ", \(datetime.month.prefix(3)) \(datetime.day)"
     }
-    
-    
+
     //update elapsed time label
     @objc func updateElapsedTime() {
         formatter.dateFormat = "mm:ss:SS"
         elapsedTime.text = formatter.string(from: Date(timeIntervalSince1970: counter))
         
     }
-    
-    
+
     //    MARK: IBactions
     @IBAction func logOutBtn(_ sender: Any) {
         AuthService.instance.logoutUser()
@@ -151,7 +150,7 @@ class HomeViewController: UIViewController {
 
         if let activity = clockOutButton.currentTitle {
             viewModel.createTimeSheet(activity: activity, record: datetime.time)
-            datetime.timeDiff(start: timeThen!, end: datetime.time)
+            datetime.timeDiff(start: timeThen ?? "", end: datetime.time)
                 .subscribe(onNext: {  [weak self] hour in
                     self?.viewModel.createTimeSheet(activity: "Hours", record: hour)
                 })
@@ -162,5 +161,34 @@ class HomeViewController: UIViewController {
         elapsedTime.text = "00:00:00"
         
     }
+    
+    @IBAction func photoLibrary(_ sender: Any) {
+        let picker = UIImagePickerController()
+        present(picker, animated: true, completion: nil)
+        picker.delegate = self
+        picker.allowsEditing = true
+        
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        var selectedImageFromPicker: UIImage?
+        if let editedImage = info[.editedImage] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else if let originalImage = info[.originalImage] as? UIImage {
+            selectedImageFromPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker {
+            profilePicture.image = selectedImage
+            DataService.uploadImage(image: selectedImage, uid: Auth.auth().currentUser!.uid)
+        }
+        dismiss(animated: true, completion: nil)
+        
+    }
+   
+    
 }
+
 

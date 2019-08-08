@@ -9,23 +9,29 @@
 import UIKit
 import SpreadsheetView
 import RxSwift
+import RxCocoa
 
 class TimeSheetController: UIViewController, SpreadsheetViewDataSource, SpreadsheetViewDelegate {
     
-//IBoutlets
+
     @IBOutlet var spreadsheet: SpreadsheetView!
     @IBOutlet weak var navTitle: UINavigationItem!
     
-//Variables
     private let disposeBag = DisposeBag()
     private let timeSheetData = TimeSheetViewModel()
     private let datetime = DateTimeService()
     
+    
+    
+    private var sumTime = [Int]()
     private var totalTitles = [String]()
     private var titles = [String]()
     private var titlesColors = [UIColor]()
     private var days = [Int]()
     private var realData = [workDaysData]()
+    private var totalHours: Int?
+    
+    var testObser = 0
     
     private let evenRowColor = UIColor(red: 0.914, green: 0.914, blue: 0.906, alpha: 1)
     private let oddRowColor: UIColor = .white
@@ -38,8 +44,10 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         
         navTitle.title = "\(datetime.month.prefix(3)) \(datetime.year)"
         days = [Int](1...datetime.monthDays)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         
-        totalTitles = ["Total Days: 15", "Total Hours: 80", "", "CutOff Day: 24"]
+        
+        totalTitles = ["Total Days: \(totalHours ?? 0)", "Total Hours: 80", "", "CutOff Day: 24"]
         titles = ["Clock in","Clock out", "Break", "Hours"]
         titlesColors = [UIColor(red: 0.200, green: 0.620, blue: 0.565, alpha: 1),
                         UIColor(red: 0.918, green: 0.224, blue: 0.153, alpha: 1),
@@ -62,13 +70,16 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
                 self?.spreadsheet.reloadData()
             })
             .disposed(by: disposeBag)
+        Observable.from(sumTime)
         
-        populateSheet()
+   
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         spreadsheet.flashScrollIndicators()
+        populateSheet()
     }
     
 // MARK: DataSource
@@ -154,6 +165,14 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
                 default:
                     break
                 }
+                
+                if case (1, Int(realData[i].day)! + 1) = (indexPath.column, indexPath.row) {
+                    
+                    
+//                    sumTime.append((Int(realData[i].hours)!))
+//                    print(sumTime.reduce(0, +))
+                }
+                
                 if !text.isEmpty {
                     cell.label.text = text
                     let color = titlesColors[indexPath.column - 1]
@@ -170,8 +189,7 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
                 
                 return cell
             }
-            
-            
+
         }
         
         if case (1...(titles.count + 1), 2...(days.count + 2)) = (indexPath.column, indexPath.row) {
@@ -189,10 +207,12 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     /// Delegate
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, didSelectItemAt indexPath: IndexPath) {
         print("Selected: (row: \(indexPath.row), column: \(indexPath.column))")
-    }
+        
+       
+        }
     
     func populateSheet() {
-        
+       
     }
+ 
 }
-

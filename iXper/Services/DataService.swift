@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import RxSwift
+import FirebaseStorage
 
 let database = Database.database().reference()
 
@@ -18,7 +19,7 @@ class DataService{
     
     private static var databaseReference = database
     private static var usersReference = database.child("users")
-
+    
     static var ref: DatabaseReference {
         return databaseReference
     }
@@ -38,6 +39,54 @@ class DataService{
         
         DataService.refUsers.child(uid).child("TimeSheet").child("years").updateChildValues(timeSheetData)
     }
+    
+    static func uploadImage(image: UIImage, uid: String){
+        let storageReference = Storage.storage().reference().child("\(uid).png")
+        
+        if let uploadData = image.pngData() {
+            storageReference.putData(uploadData, metadata: nil) { (metadata, error) in
+                guard let metadata = metadata else {
+                   
+                    return
+                }
+
+                let size = metadata.size
+              
+                storageReference.downloadURL { (url, error) in
+                    guard let downloadURL = url else {
+                      
+                        return
+                    }
+                    print(downloadURL.absoluteString)
+                    DataService.refUsers.child(uid).updateChildValues(["photoUrl" : downloadURL.absoluteString])
+                }
+            }
+            
+        }
+        
+        
+        
+        
+    }
+    
+    //    static func uploadImage(_ image: UIImage, at reference: StorageReference, completion: @escaping (URL?) -> Void) {
+    //
+    //        guard let imageData = image.jpegData(compressionQuality: 0.1) else {
+    //            return completion(nil)
+    //        }
+    //
+    //        let metaData = StorageMetadata()
+    //        metaData.contentType = "image/jpg"
+    //        reference.putData(imageData, metadata: metaData, completion: { (metadata, error) in
+    //            if let error = error {
+    //                assertionFailure(error.localizedDescription)
+    //                print("Upload failed :: ",error.localizedDescription)
+    //                return completion(nil)
+    //            }
+    //
+    //            completion(metadata.)
+    //        })
+    //    }
     
     //MARK: GET DATA FROM FIREBASE
     func getUserData(forUid uid: String) -> Observable<User>{
