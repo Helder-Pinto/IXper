@@ -21,7 +21,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var todaysDate: UILabel!
     @IBOutlet weak var clockInButton: ShadowButton!
     @IBOutlet weak var clockOutButton: ShadowButton!
-
+    
     private let datetime = DateTimeService()
     private let disposebag = DisposeBag()
     private let formatter = DateFormatter()
@@ -37,12 +37,15 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+  
+        
         Observable.interval(0.1, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_: Int) in
                 self?.updateTime()
             })
             .disposed(by: disposebag)
+        
+        
         
         isTimerRunning
             .distinctUntilChanged()
@@ -114,26 +117,26 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             .disposed(by: disposebag)
         
     }
-  
+    
     @objc func updateTime(){
         actualTime.text = datetime.time
         todaysDate.text = datetime.weekDay + ", \(datetime.month.prefix(3)) \(datetime.day)"
     }
-
+    
     //update elapsed time label
     @objc func updateElapsedTime() {
         formatter.dateFormat = "mm:ss:SS"
         elapsedTime.text = formatter.string(from: Date(timeIntervalSince1970: counter))
         
     }
-
+    
     //    MARK: IBactions
     @IBAction func logOutBtn(_ sender: Any) {
         AuthService.instance.logoutUser()
     }
     
     @IBAction func clockInAndPause(_ sender: Any) {
- 
+        
         if let activity = clockInButton.currentTitle {
             viewModel.createTimeSheet(activity: activity, record: datetime.time)
         }
@@ -147,7 +150,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @IBAction func clockOut(_ sender: Any) {
-
+        
         if let activity = clockOutButton.currentTitle {
             viewModel.createTimeSheet(activity: activity, record: datetime.time)
             datetime.timeDiff(start: timeThen ?? "", end: datetime.time)
@@ -166,8 +169,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let picker = UIImagePickerController()
         present(picker, animated: true, completion: nil)
         picker.delegate = self
-        picker.allowsEditing = true
-        
         
     }
     
@@ -187,8 +188,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         dismiss(animated: true, completion: nil)
         
     }
-   
     
 }
-
 

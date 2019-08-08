@@ -10,18 +10,16 @@ import UIKit
 import SpreadsheetView
 import RxSwift
 import RxCocoa
+import RxGesture
 
 class TimeSheetController: UIViewController, SpreadsheetViewDataSource, SpreadsheetViewDelegate {
-    
-
+ 
     @IBOutlet var spreadsheet: SpreadsheetView!
     @IBOutlet weak var navTitle: UINavigationItem!
     
     private let disposeBag = DisposeBag()
     private let timeSheetData = TimeSheetViewModel()
     private let datetime = DateTimeService()
-    
-    
     
     private var sumTime = [Int]()
     private var totalTitles = [String]()
@@ -30,7 +28,7 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     private var days = [Int]()
     private var realData = [workDaysData]()
     private var totalHours: Int?
-    
+
     var testObser = 0
     
     private let evenRowColor = UIColor(red: 0.914, green: 0.914, blue: 0.906, alpha: 1)
@@ -42,9 +40,57 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         spreadsheet.delegate = self
 
         
-        navTitle.title = "\(datetime.month.prefix(3)) \(datetime.year)"
+        //SWIPE GESTURES
+        
+        
+        view.rx.swipeGesture([.left, .right])
+            .when(.recognized)
+            .subscribe(onNext: {  [weak self] gesture in
+                if gesture.direction == .left {
+                    
+                    self?.testObser += 1
+                    let now = self?.getNextMonth(value: self?.testObser ?? 0)
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "LLLL"
+                    let nameOfMonth = dateFormatter.string(from: now!)
+                    self?.navTitle.title = nameOfMonth + " \(self!.datetime.year)"
+                    self?.spreadsheet.reloadData()
+                    
+                    self?.timeSheetData.getSheetTestData(month: nameOfMonth)
+                        .subscribe(onNext: { [weak self] workdata in
+                            self?.realData = workdata
+                            self?.spreadsheet.reloadData()
+                        })
+                        .disposed(by: self!.disposeBag)
+                    
+                    
+                    
+                } else {
+                    self?.testObser -= 1
+                    let now = self?.getNextMonth(value: self?.testObser ?? 0)
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "LLLL"
+                    let nameOfMonth = dateFormatter.string(from: now!)
+                    self?.navTitle.title = nameOfMonth + " \(self!.datetime.year)"
+                    self?.spreadsheet.reloadData()
+                    
+                    self?.timeSheetData.getSheetTestData(month: nameOfMonth)
+                        .subscribe(onNext: { [weak self] workdata in
+                            self?.realData = workdata
+                            self?.spreadsheet.reloadData()
+                        })
+                        .disposed(by: self!.disposeBag)
+                }
+            }).disposed(by: disposeBag)
+    
+        
+        
+        navTitle.title = "\(datetime.month) \(datetime.year)"
         days = [Int](1...datetime.monthDays)
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = true
+      
         
         
         totalTitles = ["Total Days: \(totalHours ?? 0)", "Total Hours: 80", "", "CutOff Day: 24"]
@@ -70,16 +116,13 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
                 self?.spreadsheet.reloadData()
             })
             .disposed(by: disposeBag)
-        Observable.from(sumTime)
-        
-   
-
+      
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         spreadsheet.flashScrollIndicators()
-        populateSheet()
+        
     }
     
 // MARK: DataSource
@@ -211,8 +254,14 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
        
         }
     
-    func populateSheet() {
-       
+    func getNextMonth(value: Int) -> Date? {
+        return Calendar.current.date(byAdding: .month, value: value, to: Date())
     }
+    
+    func getPreviousMonth() -> Date? {
+        return Calendar.current.date(byAdding: .month, value: -1, to: Date())
+    }
+ 
+
  
 }

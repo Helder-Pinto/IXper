@@ -18,6 +18,7 @@ target 'iXper' do
    pod 'RxSwift','~> 4.0'
    pod 'RxCocoa','~> 4.0'
    pod 'SpreadsheetView', '~> 0.8'
+   pod 'RxGesture'
 
   target 'iXperTests' do
     inherit! :search_paths

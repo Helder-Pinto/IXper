@@ -45,16 +45,8 @@ class DataService{
         
         if let uploadData = image.pngData() {
             storageReference.putData(uploadData, metadata: nil) { (metadata, error) in
-                guard let metadata = metadata else {
-                   
-                    return
-                }
-
-                let size = metadata.size
-              
                 storageReference.downloadURL { (url, error) in
                     guard let downloadURL = url else {
-                      
                         return
                     }
                     print(downloadURL.absoluteString)
@@ -63,30 +55,9 @@ class DataService{
             }
             
         }
-        
-        
-        
-        
     }
     
-    //    static func uploadImage(_ image: UIImage, at reference: StorageReference, completion: @escaping (URL?) -> Void) {
-    //
-    //        guard let imageData = image.jpegData(compressionQuality: 0.1) else {
-    //            return completion(nil)
-    //        }
-    //
-    //        let metaData = StorageMetadata()
-    //        metaData.contentType = "image/jpg"
-    //        reference.putData(imageData, metadata: metaData, completion: { (metadata, error) in
-    //            if let error = error {
-    //                assertionFailure(error.localizedDescription)
-    //                print("Upload failed :: ",error.localizedDescription)
-    //                return completion(nil)
-    //            }
-    //
-    //            completion(metadata.)
-    //        })
-    //    }
+
     
     //MARK: GET DATA FROM FIREBASE
     func getUserData(forUid uid: String) -> Observable<User>{
@@ -123,5 +94,24 @@ class DataService{
         }
         
     }
+    
+    //    static func uploadImage(_ image: UIImage, uid: String, completion: @escaping (URL?) -> Void) {
+    //
+    //        guard let imageData = image.jpegData(compressionQuality: 0.1) else {
+    //            return completion(nil)
+    //        }
+    //
+    //        let metaData = StorageMetadata()
+    //        metaData.contentType = "image/jpg"
+    //        reference.putData(imageData, metadata: metaData, completion: { (metadata, error) in
+    //            if let error = error {
+    //                assertionFailure(error.localizedDescription)
+    //                print("Upload failed :: ",error.localizedDescription)
+    //                return completion(nil)
+    //            }
+    //
+    //            completion(metadata.)
+    //        })
+    //    }
     
 }

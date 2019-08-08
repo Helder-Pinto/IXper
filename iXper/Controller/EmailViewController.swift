@@ -37,7 +37,6 @@ class EmailViewController: UIViewController {
 }
 
 
-
 //                AuthService.instance.createNewUser(withEmail: self.emailField.text!, andPassword: self.passwordField.text!, userCreationComplete: { (success, registrationError) in
 //                    if success {
 //                        AuthService.instance.loginUser(withEmail: self.emailField.text!, andPassword: self.passwordField.text!, loginCompleted: { (success, nil) in
