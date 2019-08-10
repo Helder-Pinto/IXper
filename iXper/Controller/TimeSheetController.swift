@@ -28,12 +28,9 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     private var days = [Int]()
     private var realData = [workDaysData]()
     private var totalHours: Int?
-
-    var testObser = 0
-    
+    private var testCounter = 0
     private let evenRowColor = UIColor(red: 0.914, green: 0.914, blue: 0.906, alpha: 1)
     private let oddRowColor: UIColor = .white
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         spreadsheet.dataSource = self
@@ -42,49 +39,60 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         
         //SWIPE GESTURES
         
-        
+//        testing
         view.rx.swipeGesture([.left, .right])
             .when(.recognized)
             .subscribe(onNext: {  [weak self] gesture in
+//                guard let self = self else {
+//                    return
+//                }
+                
                 if gesture.direction == .left {
+                    self?.testCounter += 1
+                    let month = self?.getMonth(value: self?.testCounter ?? 0)
+                    self?.timeSheetData.currentDate.accept(month ?? Date())
+
+//                    let dateFormatter = DateFormatter()
+//                    dateFormatter.dateFormat = "LLLL"
+//                    let nameOfMonth = dateFormatter.string(from: now!)
+//                    self?.navTitle.title = nameOfMonth + " \(self!.datetime.year)"
+//                    self?.spreadsheet.reloadData()
                     
-                    self?.testObser += 1
-                    let now = self?.getNextMonth(value: self?.testObser ?? 0)
-                    
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "LLLL"
-                    let nameOfMonth = dateFormatter.string(from: now!)
-                    self?.navTitle.title = nameOfMonth + " \(self!.datetime.year)"
-                    self?.spreadsheet.reloadData()
-                    
-                    self?.timeSheetData.getSheetTestData(month: nameOfMonth)
-                        .subscribe(onNext: { [weak self] workdata in
-                            self?.realData = workdata
-                            self?.spreadsheet.reloadData()
-                        })
-                        .disposed(by: self!.disposeBag)
-                    
+//                    self?.timeSheetData.getSheetTestData(month: nameOfMonth)
+//                        .subscribe(onNext: { [weak self] workdata in
+//                            self?.realData = workdata
+//                            self?.spreadsheet.reloadData()
+//                        })
+//                        .disposed(by: self!.disposeBag)
+//
                     
                     
                 } else {
-                    self?.testObser -= 1
-                    let now = self?.getNextMonth(value: self?.testObser ?? 0)
+                    self?.testCounter -= 1
+                    let month = self?.getMonth(value: self?.testCounter ?? 0)
+                    self?.timeSheetData.currentDate.accept(month ?? Date())
                     
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "LLLL"
-                    let nameOfMonth = dateFormatter.string(from: now!)
-                    self?.navTitle.title = nameOfMonth + " \(self!.datetime.year)"
-                    self?.spreadsheet.reloadData()
                     
-                    self?.timeSheetData.getSheetTestData(month: nameOfMonth)
-                        .subscribe(onNext: { [weak self] workdata in
-                            self?.realData = workdata
-                            self?.spreadsheet.reloadData()
-                        })
-                        .disposed(by: self!.disposeBag)
+//                    self?.testCounter -= 1
+//                    let now = self?.getNextMonth(value: self?.testCounter ?? 0)
+//
+//                    let dateFormatter = DateFormatter()
+//                    dateFormatter.dateFormat = "LLLL"
+//                    let nameOfMonth = dateFormatter.string(from: now!)
+//                    self?.navTitle.title = nameOfMonth + " \(self!.datetime.year)"
+//                    self?.spreadsheet.reloadData()
+////
+//                    self?.timeSheetData.getSheetTestData(month: nameOfMonth)
+//                        .subscribe(onNext: { [weak self] workdata in
+//                            self?.realData = workdata
+//                            self?.spreadsheet.reloadData()
+//                        })
+//                        .disposed(by: self!.disposeBag)
                 }
             }).disposed(by: disposeBag)
     
+        
+        
         
         
         navTitle.title = "\(datetime.month) \(datetime.year)"
@@ -110,12 +118,28 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         spreadsheet.register(DayTitleCell.self, forCellWithReuseIdentifier: String(describing: DayTitleCell.self))
         spreadsheet.register(ScheduleCell.self, forCellWithReuseIdentifier: String(describing: ScheduleCell.self))
         
-        timeSheetData.getSheetData()
+        timeSheetData.sheetData
             .subscribe(onNext: { [weak self] workdata in
                 self?.realData = workdata
                 self?.spreadsheet.reloadData()
             })
             .disposed(by: disposeBag)
+        
+        timeSheetData.sheetData
+            .subscribe(onNext: { [weak self] workdata in
+                let totalHours = workdata.reduce(0, { (result, data) in
+                    result + (Int(data.hours) ?? 0)
+                })
+            })
+            .disposed(by: disposeBag)
+
+        
+//        timeSheetData.getSheetData()
+//            .subscribe(onNext: { [weak self] workdata in
+//                self?.realData = workdata
+//                self?.spreadsheet.reloadData()
+//            })
+//            .disposed(by: disposeBag)
       
     }
     
@@ -254,14 +278,10 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
        
         }
     
-    func getNextMonth(value: Int) -> Date? {
+    func getMonth(value: Int) -> Date? {
         return Calendar.current.date(byAdding: .month, value: value, to: Date())
     }
     
-    func getPreviousMonth() -> Date? {
-        return Calendar.current.date(byAdding: .month, value: -1, to: Date())
-    }
- 
-
+  
  
 }

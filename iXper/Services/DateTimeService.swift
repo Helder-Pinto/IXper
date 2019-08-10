@@ -27,7 +27,7 @@ struct DateTimeService {
     
     var weekDay: String {
         let weekdayUnit = calendar.component(.weekday, from: date)
-        return calendar.weekdaySymbols[weekdayUnit]
+        return calendar.weekdaySymbols[weekdayUnit-1]
     }
     
     var monthDays: Int{

@@ -9,13 +9,32 @@
 import UIKit
 import Firebase
 import RxSwift
+import RxCocoa
 
 class TimeSheetViewModel {
     
     private let datetime = DateTimeService()
     
-    func getSheetData() -> Observable<[workDaysData]> {
-        let query = DataService.refUsers.child(Auth.auth().currentUser!.uid).child("TimeSheet").child("years").child(String(datetime.year)).child(datetime.month)
+    public let currentDate = BehaviorRelay(value: Date())
+    
+    public var sheetData: Observable<[workDaysData]> {
+        return currentDate
+            .flatMapLatest { date in
+                self.getSheetData(for: date)
+            }
+    }
+    
+    init() {
+        
+    }
+    
+    func getSheetData(for date: Date) -> Observable<[workDaysData]> {
+        
+        let calendar = Calendar.current
+        let monthUnit = calendar.component(.month, from: date)
+        let month = calendar.monthSymbols[monthUnit-1]
+    
+        let query = DataService.refUsers.child(Auth.auth().currentUser!.uid).child("TimeSheet").child("years").child(String(datetime.year)).child(month)
         
         return Observable.create { (observer)  in
             
