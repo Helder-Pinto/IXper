@@ -62,9 +62,15 @@ struct DateTimeService {
         }
     }
     
-    func getMonth(value: Int) {
-        
-    }
     
-   
+    func monthDays(_ month: String) -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM"
+        guard let date = dateFormatter.date(from: month) else {return
+            calendar.component(.month, from: Date())}
+        if let interval = calendar.dateInterval(of: .month, for: date)
+        {
+            return calendar.dateComponents([.day], from: interval.start, to: interval.end).day ?? 0}
+        return 0}
+
 }
