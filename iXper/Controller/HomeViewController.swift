@@ -153,6 +153,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         if let activity = clockOutButton.currentTitle {
             viewModel.createTimeSheet(activity: activity, record: datetime.time)
+            
             datetime.timeDiff(start: timeThen ?? "", end: datetime.time)
                 .subscribe(onNext: {  [weak self] hour in
                     self?.viewModel.createTimeSheet(activity: "Hours", record: hour)

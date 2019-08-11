@@ -499,7 +499,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.3312482745" green="0.84705882349999995" blue="0.1755410701" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                <state key="normal" title="Clear">
+                                <state key="normal" title="Save">
                                     <color key="titleColor" red="0.98431372549999996" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
@@ -514,6 +514,7 @@
                         <viewLayoutGuide key="safeArea" id="vMJ-q7-1p6"/>
                     </view>
                     <connections>
+                        <outlet property="breakTextLabel" destination="J51-1e-Fur" id="zGX-Ei-Ski"/>
                         <outlet property="clearButton" destination="A04-IV-RTR" id="vHA-Ru-m8Y"/>
                         <outlet property="clockIn" destination="3Xh-6h-5Iz" id="BeX-W4-v5z"/>
                         <outlet property="clockOut" destination="fJe-1S-CMA" id="Idx-BU-iVT"/>

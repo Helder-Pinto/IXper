@@ -31,6 +31,7 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     private var monthCounter = 0
     private let evenRowColor = UIColor(red: 0.914, green: 0.914, blue: 0.906, alpha: 1)
     private let oddRowColor: UIColor = .white
+
     
     
     override func viewDidLoad() {
@@ -76,6 +77,9 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
                 self.days = [Int](1...self.datetime.monthDays(month))
             })
             .disposed(by: disposeBag)
+        
+  
+        
         
         
         
@@ -254,16 +258,20 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         super.prepare(for: segue, sender: sender)
         if let controller = segue.destination as? EditSheetViewController {
             let index = sender as? Int
-
             if let day = index {
+                controller.day = String(day-1)
                 for data in realData {
                     if data.day == String(day-1) {
                         controller.sheetData = [data]
+                    
                     }
                 }
             }
-
-
+            timeSheetData.currentDate
+                .subscribe(onNext: {  month in
+                    controller.month = month
+                })
+                .disposed(by: disposeBag)
         }
 
 

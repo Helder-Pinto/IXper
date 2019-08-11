@@ -14,7 +14,7 @@ import RxCocoa
 class TimeSheetViewModel {
     
     private let datetime = DateTimeService()
-    
+    private let disposeBag = DisposeBag()
     public let currentDate = BehaviorRelay(value: DateTimeService.init().month)
     
     public var sheetData: Observable<[workDaysData]> {
@@ -85,6 +85,14 @@ class TimeSheetViewModel {
             return Calendar.current.monthSymbols[monthUnit-1]
         }
         return ""
+    }
+    
+    func createSheetDate(month: String, day: String, activity: String, record: String){
+        
+        let path = ["/\(self.datetime.year)/\(month)/\(day)/\(activity)":"\(record)"]
+        if let uid = Auth.auth().currentUser?.uid {
+            DataService.instance.createTimeSheet(uid: uid, timeSheetData: path)
+        }
     }
 }
 
