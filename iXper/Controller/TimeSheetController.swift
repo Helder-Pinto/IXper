@@ -28,14 +28,17 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     private var days = [Int]()
     private var realData = [workDaysData]()
     private var totalHours: Int?
-    private var testCounter = 0
+    private var monthCounter = 0
     private let evenRowColor = UIColor(red: 0.914, green: 0.914, blue: 0.906, alpha: 1)
     private let oddRowColor: UIColor = .white
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         spreadsheet.dataSource = self
         spreadsheet.delegate = self
-        
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         //SWIPE GESTURES
         view.rx.swipeGesture([.left, .right])
@@ -45,21 +48,16 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
                     return
                 }
                 if gesture.direction == .left {
-                    self.testCounter += 1
-                    let month = self.getMonth(value: self.testCounter )
+                    self.monthCounter += 1
+                    let month = self.timeSheetData.getMonth(value: self.monthCounter )
                     self.timeSheetData.currentDate.accept(month)
-                    
                     
                 } else {
-                    self.testCounter -= 1
-                    let month = self.getMonth(value: self.testCounter )
+                    self.monthCounter -= 1
+                    let month = self.timeSheetData.getMonth(value: self.monthCounter )
                     self.timeSheetData.currentDate.accept(month)
-                    
-                    
                 }
             }).disposed(by: disposeBag)
-        
-        
         
         timeSheetData.currentDate
             .subscribe(onNext: { [weak self] month in
@@ -70,23 +68,17 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
             })
             .disposed(by: disposeBag)
         
-        
         timeSheetData.currentDate
             .subscribe(onNext: { [weak self] month in
                 guard let self = self else {
                     return
                 }
                 self.days = [Int](1...self.datetime.monthDays(month))
-                print(self.days)
             })
             .disposed(by: disposeBag)
         
         
         
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        totalTitles = ["Total Days: \(totalHours ?? 0)", "Total Hours: 80", "", "CutOff Day: 24"]
         titles = ["Clock in","Clock out", "Break", "Hours"]
         titlesColors = [UIColor(red: 0.200, green: 0.620, blue: 0.565, alpha: 1),
                         UIColor(red: 0.918, green: 0.224, blue: 0.153, alpha: 1),
@@ -114,18 +106,17 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
             .subscribe(onNext: { [weak self] workdata in
                 let totalHours = workdata.reduce(0, { (result, data) in
                     result + (Int(data.hours) ?? 0)
-                    
-                    
                 })
                 print(totalHours)
             })
             .disposed(by: disposeBag)
-        
+        totalTitles = ["Total Days: \(totalHours ?? 0)", "Total Hours: 80", "", "CutOff Day: 24"]
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         spreadsheet.flashScrollIndicators()
+        
         
     }
     
@@ -214,10 +205,6 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
                 }
                 
                 if case (1, Int(realData[i].day)! + 1) = (indexPath.column, indexPath.row) {
-                    
-                    
-                    //                    sumTime.append((Int(realData[i].hours)!))
-                    //                    print(sumTime.reduce(0, +))
                 }
                 
                 if !text.isEmpty {
@@ -251,18 +238,36 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         return nil
     }
     
-    /// Delegate
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, didSelectItemAt indexPath: IndexPath) {
         print("Selected: (row: \(indexPath.row), column: \(indexPath.column))")
-        
-        
+        if indexPath.row > 1 {
+            performSegue(withIdentifier: "ShowEditSheetSegue", sender: indexPath.row)
+        }
+
+
     }
     
-    func getMonth(value: Int) -> String {
-        let month = Calendar.current.date(byAdding: .month, value: value, to: Date())
-        let monthUnit = Calendar.current.component(.month, from: month!)
-        return Calendar.current.monthSymbols[monthUnit-1]
-        
+ 
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if let controller = segue.destination as? EditSheetViewController {
+            let index = sender as? Int
+
+            if let day = index {
+                for data in realData {
+                    if data.day == String(day-1) {
+                        controller.sheetData = [data]
+                    }
+                }
+            }
+
+
+        }
+
+
     }
+    
     
 }

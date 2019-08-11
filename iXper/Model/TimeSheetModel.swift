@@ -21,3 +21,12 @@ struct workDaysData {
     var pause: String
     var hours: String
 }
+
+struct totalData {
+    var totalDays: Int
+    var totalHours: Int
+    var cuttoffDay = 24
+}
+
+
+

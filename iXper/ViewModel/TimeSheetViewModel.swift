@@ -21,14 +21,14 @@ class TimeSheetViewModel {
         return currentDate
             .flatMapLatest { month in
                 self.getSheetData(month: month)
-            }
+        }
     }
     
     init() {
         
     }
     
-
+    
     func getSheetData(month: String) -> Observable<[workDaysData]> {
         
         let query = DataService.refUsers.child(Auth.auth().currentUser!.uid).child("TimeSheet").child("years").child(String(datetime.year)).child(month)
@@ -79,6 +79,12 @@ class TimeSheetViewModel {
         }
     }
     
-    
+    func getMonth(value: Int) -> String {
+        if let month = Calendar.current.date(byAdding: .month, value: value, to: Date()) {
+            let monthUnit = Calendar.current.component(.month, from: month)
+            return Calendar.current.monthSymbols[monthUnit-1]
+        }
+        return ""
+    }
 }
 
