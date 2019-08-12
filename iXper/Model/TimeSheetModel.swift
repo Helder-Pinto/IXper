@@ -6,7 +6,7 @@
 //  Copyright © 2019 Helder Pinto. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 struct TimeSheet {
@@ -14,7 +14,7 @@ struct TimeSheet {
     var totalDays: Int
 }
 
-struct workDaysData {
+struct WorkDaysData {
     var day: String
     var clocktIn: String
     var clockOut: String
@@ -22,11 +22,18 @@ struct workDaysData {
     var hours: String
 }
 
-struct totalData {
+struct TotalData {
     var totalDays: Int
     var totalHours: Int
     var cuttoffDay = 24
 }
+
+struct Titles {
+    var titles: [String]
+    var titleColors: [UIColor]
+    var totalTitles: [String]
+}
+
 
 
 

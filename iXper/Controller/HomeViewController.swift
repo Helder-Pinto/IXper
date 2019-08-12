@@ -26,10 +26,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     private let disposebag = DisposeBag()
     private let formatter = DateFormatter()
     private let viewModel = HomeViewModel()
+    private let timeSheet = TimeSheetViewModel()
+    
     private let isTimerRunning = BehaviorRelay(value: false)
     private let isTimerPaused = BehaviorRelay(value: false)
     
-    private var datafromtimesheet = [workDaysData]()
+    private var datafromtimesheet = [WorkDaysData]()
     private var counter = TimeInterval(0)
     private var timeThen: String?
     private var elapsed = ElapsedTime()
@@ -153,7 +155,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         if let activity = clockOutButton.currentTitle {
             viewModel.createTimeSheet(activity: activity, record: datetime.time)
-            
+
             datetime.timeDiff(start: timeThen ?? "", end: datetime.time)
                 .subscribe(onNext: {  [weak self] hour in
                     self?.viewModel.createTimeSheet(activity: "Hours", record: hour)

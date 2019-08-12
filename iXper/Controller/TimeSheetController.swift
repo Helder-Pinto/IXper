@@ -22,11 +22,11 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
     private let datetime = DateTimeService()
     
     private var sumTime = [Int]()
-    private var totalTitles = [String]()
     private var titles = [String]()
     private var titlesColors = [UIColor]()
+    private var totalTitles = [String]()
     private var days = [Int]()
-    private var realData = [workDaysData]()
+    private var realData = [WorkDaysData]()
     private var totalHours: Int?
     private var monthCounter = 0
     private let evenRowColor = UIColor(red: 0.914, green: 0.914, blue: 0.906, alpha: 1)
@@ -39,7 +39,11 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
         
         spreadsheet.dataSource = self
         spreadsheet.delegate = self
+        
         navigationController?.navigationBar.prefersLargeTitles = true
+        titles = timeSheetData.titles[0].titles
+        titlesColors = timeSheetData.titles[0].titleColors
+        totalTitles = timeSheetData.titles[0].totalTitles
         
         //SWIPE GESTURES
         view.rx.swipeGesture([.left, .right])
@@ -77,19 +81,8 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
                 self.days = [Int](1...self.datetime.monthDays(month))
             })
             .disposed(by: disposeBag)
-        
   
-        
-        
-        
-        
-        titles = ["Clock in","Clock out", "Break", "Hours"]
-        titlesColors = [UIColor(red: 0.200, green: 0.620, blue: 0.565, alpha: 1),
-                        UIColor(red: 0.918, green: 0.224, blue: 0.153, alpha: 1),
-                        UIColor(red: 0.106, green: 0.541, blue: 0.827, alpha: 1),
-                        UIColor(red: 0.953, green: 0.498, blue: 0.098, alpha: 1)
-        ]
-        
+       
         spreadsheet.contentInset = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
         spreadsheet.intercellSpacing = CGSize(width: 4, height: 1)
         spreadsheet.gridStyle = .none
@@ -106,22 +99,35 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
             })
             .disposed(by: disposeBag)
         
+        
         timeSheetData.sheetData
             .subscribe(onNext: { [weak self] workdata in
+                
                 let totalHours = workdata.reduce(0, { (result, data) in
                     result + (Int(data.hours) ?? 0)
                 })
-                print(totalHours)
+                self?.totalTitles[1] = "Total Hours: \(totalHours)"
+                self?.spreadsheet.reloadData()
             })
             .disposed(by: disposeBag)
-        totalTitles = ["Total Days: \(totalHours ?? 0)", "Total Hours: 80", "", "CutOff Day: 24"]
+        
+        timeSheetData.sheetData
+            .subscribe(onNext: { [weak self] workdata in
+                
+                let totaldays = workdata.count
+                
+                self?.totalTitles[0] = "Total Days: \(totaldays)"
+                self?.spreadsheet.reloadData()
+            })
+            .disposed(by: disposeBag)
+       
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         spreadsheet.flashScrollIndicators()
-        
-        
+ 
     }
     
     // MARK: DataSource
@@ -251,9 +257,7 @@ class TimeSheetController: UIViewController, SpreadsheetViewDataSource, Spreadsh
 
     }
     
- 
-    
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         if let controller = segue.destination as? EditSheetViewController {
