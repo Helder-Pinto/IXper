@@ -18,6 +18,8 @@ class TimeSheetViewModel {
     private(set) var titles = [Titles]()
     public let currentDate = BehaviorRelay(value: DateTimeService.init().month)
     
+    
+    
     public var sheetData: Observable<[WorkDaysData]> {
         return currentDate
             .flatMapLatest { month in
@@ -39,7 +41,7 @@ class TimeSheetViewModel {
         
         let query = DataService.refUsers.child(Auth.auth().currentUser!.uid).child("TimeSheet").child("years").child(String(datetime.year)).child(month)
         
-        return Observable.create { (observer)  in
+        return Observable.create { [datetime] (observer)  in
             
             let handle = query.observe(.value) { (snapshot) -> Void in
                 
@@ -66,10 +68,9 @@ class TimeSheetViewModel {
                     if days.childSnapshot(forPath: "Pause").exists() {
                         pauseTime = days.childSnapshot(forPath: "Pause").value as! String
                     }
+
+                    hours = datetime.timeDifference(start: clockIn, end: clockOut)
                     
-                    if days.childSnapshot(forPath: "Hours").exists() {
-                        hours = days.childSnapshot(forPath: "Hours").value as! String
-                    }
                     
                     let capturedData = WorkDaysData(day: day, clocktIn: clockIn, clockOut: clockOut, pause: pauseTime, hours: hours)
                     

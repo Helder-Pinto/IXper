@@ -39,16 +39,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
   
-        
         Observable.interval(0.1, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_: Int) in
                 self?.updateTime()
             })
             .disposed(by: disposebag)
-        
-        
-        
+ 
         isTimerRunning
             .distinctUntilChanged()
             .flatMapLatest { isRunning -> Observable<Int> in
@@ -156,11 +154,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         if let activity = clockOutButton.currentTitle {
             viewModel.createTimeSheet(activity: activity, record: datetime.time)
 
-            datetime.timeDiff(start: timeThen ?? "", end: datetime.time)
-                .subscribe(onNext: {  [weak self] hour in
-                    self?.viewModel.createTimeSheet(activity: "Hours", record: hour)
-                })
-                .disposed(by: disposebag)
         }
         isTimerRunning.accept(false)
         elapsed.stop()
