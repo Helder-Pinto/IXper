@@ -40,38 +40,31 @@ struct DateTimeService {
         return dateFormatter.string(from: Date())}
     
     
-    //Time Difference
-
-    
     func timeDifference(start: String, end: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         
-      
-            if let timeThen = dateFormatter.date(from: start), let timeNow = dateFormatter.date(from: end) {
-                
-                let calendar = Calendar.current
-                let dateComponents = calendar.dateComponents([.hour, .minute], from: timeThen, to: timeNow)
-                if  let minute = dateComponents.minute, let hour = dateComponents.hour{
-                    let date = calendar.date(from: dateComponents)!
-                    return dateFormatter.string(from: date)
-                }
-            }
+        
+        if let timeThen = dateFormatter.date(from: start), let timeNow = dateFormatter.date(from: end) {
             
-        
-        
+            let calendar = Calendar.current
+            let dateComponents = calendar.dateComponents([.hour, .minute], from: timeThen, to: timeNow)
+          
+            let date = calendar.date(from: dateComponents)!
+            return dateFormatter.string(from: date)
+                
+            }
         return ""
     }
-    
-    // Number of days in a month
-    func monthDays(_ month: String) -> Int {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM"
-        guard let date = dateFormatter.date(from: month) else {return
-            calendar.component(.month, from: Date())}
-        if let interval = calendar.dateInterval(of: .month, for: date)
-        {
-            return calendar.dateComponents([.day], from: interval.start, to: interval.end).day ?? 0}
-        return 0}
-    
+            // Number of days in a month
+            func monthDays(_ month: String) -> Int {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM"
+                guard let date = dateFormatter.date(from: month) else {return
+                    calendar.component(.month, from: Date())}
+                if let interval = calendar.dateInterval(of: .month, for: date)
+                {
+                    return calendar.dateComponents([.day], from: interval.start, to: interval.end).day ?? 0}
+                return 0}
+            
 }

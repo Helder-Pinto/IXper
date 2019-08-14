@@ -79,9 +79,6 @@
                                         <state key="normal" title="Clock In">
                                             <color key="titleColor" red="0.98431372549999996" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
-                                        <connections>
-                                            <action selector="clockInAndPause:" destination="9pv-A4-QxB" eventType="touchUpInside" id="1Ep-Ka-dNH"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nOD-rI-8aM" customClass="ShadowButton" customModule="iXper" customModuleProvider="target">
                                         <rect key="frame" x="232" y="120.5" width="157" height="42"/>
@@ -94,9 +91,6 @@
                                         <state key="normal" title="Clock Out">
                                             <color key="titleColor" red="0.98431372549999996" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
-                                        <connections>
-                                            <action selector="clockOut:" destination="9pv-A4-QxB" eventType="touchUpInside" id="0I2-DY-vRc"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Elapsed time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PEq-jj-9sE">
                                         <rect key="frame" x="114" y="208" width="103" height="21"/>

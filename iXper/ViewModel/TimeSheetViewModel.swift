@@ -23,7 +23,7 @@ class TimeSheetViewModel {
     public var sheetData: Observable<[WorkDaysData]> {
         return currentDate
             .flatMapLatest { month in
-                self.getSheetData(month: month)
+                getSheetData(month: month)
         }
     }
     
@@ -37,54 +37,7 @@ class TimeSheetViewModel {
     }
     
     
-    func getSheetData(month: String) -> Observable<[WorkDaysData]> {
-        
-        let query = DataService.refUsers.child(Auth.auth().currentUser!.uid).child("TimeSheet").child("years").child(String(datetime.year)).child(month)
-        
-        return Observable.create { [datetime] (observer)  in
-            
-            let handle = query.observe(.value) { (snapshot) -> Void in
-                
-                guard let snapshot = snapshot.children.allObjects as? [DataSnapshot] else {return}
-                
-                var daysOfWorkArray = [WorkDaysData]()
-                
-                for days in snapshot {
-                    var clockIn = ""
-                    var clockOut = ""
-                    var pauseTime = ""
-                    var hours = ""
-                    let day = days.key
-                    
-                    if days.childSnapshot(forPath: "Clock In").exists() {
-                        clockIn = days.childSnapshot(forPath: "Clock In").value as! String
-                    }
-                    
-                    if days.childSnapshot(forPath: "Clock Out").exists() {
-                        clockOut = days.childSnapshot(forPath: "Clock Out").value as! String
-                    }
-                    
-                    
-                    if days.childSnapshot(forPath: "Pause").exists() {
-                        pauseTime = days.childSnapshot(forPath: "Pause").value as! String
-                    }
 
-                    hours = datetime.timeDifference(start: clockIn, end: clockOut)
-                    
-                    
-                    let capturedData = WorkDaysData(day: day, clocktIn: clockIn, clockOut: clockOut, pause: pauseTime, hours: hours)
-                    
-                    daysOfWorkArray.append(capturedData)
-                }
-                
-                observer.onNext(daysOfWorkArray)
-            }
-            
-            return Disposables.create {
-                query.removeObserver(withHandle: handle)
-            }
-        }
-    }
     
     func getMonth(value: Int) -> String {
         if let month = Calendar.current.date(byAdding: .month, value: value, to: Date()) {
@@ -98,6 +51,55 @@ class TimeSheetViewModel {
         let path = ["/\(self.datetime.year)/\(month)/\(day)/\(activity)":"\(record)"]
         if let uid = Auth.auth().currentUser?.uid {
             DataService.instance.createTimeSheet(uid: uid, timeSheetData: path)
+        }
+    }
+}
+
+func getSheetData(month: String) -> Observable<[WorkDaysData]> {
+    let datetime = DateTimeService()
+    let query = DataService.refUsers.child(Auth.auth().currentUser!.uid).child("TimeSheet").child("years").child(String(datetime.year)).child(month)
+    
+    return Observable.create { [datetime] (observer)  in
+        
+        let handle = query.observe(.value) { (snapshot) -> Void in
+            
+            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot] else {return}
+            
+            var daysOfWorkArray = [WorkDaysData]()
+            
+            for days in snapshot {
+                var clockIn = ""
+                var clockOut = ""
+                var pauseTime = ""
+                var hours = ""
+                let day = days.key
+                
+                if days.childSnapshot(forPath: "Clock In").exists() {
+                    clockIn = days.childSnapshot(forPath: "Clock In").value as! String
+                }
+                
+                if days.childSnapshot(forPath: "Clock Out").exists() {
+                    clockOut = days.childSnapshot(forPath: "Clock Out").value as! String
+                }
+                
+                
+                if days.childSnapshot(forPath: "Pause").exists() {
+                    pauseTime = days.childSnapshot(forPath: "Pause").value as! String
+                }
+                
+                hours = datetime.timeDifference(start: clockIn, end: clockOut)
+                
+                
+                let capturedData = WorkDaysData(day: day, clocktIn: clockIn, clockOut: clockOut, pause: pauseTime, hours: hours)
+                
+                daysOfWorkArray.append(capturedData)
+            }
+            
+            observer.onNext(daysOfWorkArray)
+        }
+        
+        return Disposables.create {
+            query.removeObserver(withHandle: handle)
         }
     }
 }

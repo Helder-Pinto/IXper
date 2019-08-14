@@ -23,7 +23,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var clockOutButton: ShadowButton!
     
     private let datetime = DateTimeService()
-    private let disposebag = DisposeBag()
+    private let bag = DisposeBag()
     private let formatter = DateFormatter()
     private let viewModel = HomeViewModel()
     private let timeSheet = TimeSheetViewModel()
@@ -38,15 +38,16 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clockOutButton.isEnabled = false
+        clockOutButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        inAndOutButtons()
         
-
-  
         Observable.interval(0.1, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_: Int) in
                 self?.updateTime()
             })
-            .disposed(by: disposebag)
- 
+            .disposed(by: bag)
+        
         isTimerRunning
             .distinctUntilChanged()
             .flatMapLatest { isRunning -> Observable<Int> in
@@ -64,7 +65,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 self?.counter += 1
                 self?.updateElapsedTime()
             })
-            .disposed(by: disposebag)
+            .disposed(by: bag)
         
         Observable.combineLatest(isTimerRunning, isTimerPaused)
             .distinctUntilChanged(==)
@@ -77,7 +78,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     self?.clockInButton.setTitle("Clock In", for: .normal)
                 }
             })
-            .disposed(by: disposebag)
+            .disposed(by: bag)
         
         showSpinner(onView: view)
         populateProfile()
@@ -91,18 +92,18 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             .subscribe(onNext: {  [weak self] fullname in
                 self?.userName.text = fullname
             })
-            .disposed(by: disposebag)
+            .disposed(by: bag)
         
         viewModel.position.asObservable()
             .subscribe(onNext:{ [weak self] position in
                 self?.position.text = position
             })
-            .disposed(by: disposebag)
+            .disposed(by: bag)
         viewModel.image.asObservable()
             .subscribe(onNext: { [weak self] image in
                 self?.profilePicture.image = image
             })
-            .disposed(by: disposebag)
+            .disposed(by: bag)
         
         Observable
             .combineLatest(viewModel.fullname, viewModel.position, viewModel.image) {
@@ -114,7 +115,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     self?.removeSpinner()
                 }
             })
-            .disposed(by: disposebag)
+            .disposed(by: bag)
         
     }
     
@@ -134,32 +135,49 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBAction func logOutBtn(_ sender: Any) {
         AuthService.instance.logoutUser()
     }
-    
-    @IBAction func clockInAndPause(_ sender: Any) {
+    private func inAndOutButtons() {
+        let clockIn = clockInButton.rx.tap.share()
         
-        if let activity = clockInButton.currentTitle {
-            viewModel.createTimeSheet(activity: activity, record: datetime.time)
+        clockIn
+            .bind{ [weak self] _ in
+                guard let self = self else {
+                    return
+                }
+                self.clockOutButton.isEnabled = true
+                self.clockOutButton.backgroundColor = #colorLiteral(red: 1, green: 0, blue: 0.1131495762, alpha: 1)
+                if let activity = self.clockInButton.currentTitle {
+                    self.viewModel.createTimeSheet(activity: activity, record: self.datetime.time)
+                }
+                if !self.isTimerRunning.value {
+                    self.counter = 0
+                    self.isTimerRunning.accept(true)
+                    self.timeThen = self.datetime.time
+                } else {
+                    self.isTimerPaused.accept(!self.isTimerPaused.value)
+                }
+            }
+            .disposed(by: bag)
+        
+        clockOutButton.rx.tap
+            .bind{ [weak self] _ in
+                guard let self = self else {
+                    return
+                }
+                self.clockOutButton.isEnabled = false
+                self.clockOutButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+                
+                if let activity = self.clockOutButton.currentTitle {
+                    self.viewModel.createTimeSheet(activity: activity, record: self.datetime.time)
+                    
+                }
+                self.isTimerRunning.accept(false)
+                self.elapsed.stop()
+                self.elapsedTime.text = "00:00:00"
+                
         }
-        if !isTimerRunning.value {
-            counter = 0
-            isTimerRunning.accept(true)
-            timeThen = datetime.time
-        } else {
-            isTimerPaused.accept(!isTimerPaused.value)
-        }
+       .disposed(by: bag)
     }
-    
-    @IBAction func clockOut(_ sender: Any) {
-        
-        if let activity = clockOutButton.currentTitle {
-            viewModel.createTimeSheet(activity: activity, record: datetime.time)
 
-        }
-        isTimerRunning.accept(false)
-        elapsed.stop()
-        elapsedTime.text = "00:00:00"
-        
-    }
     
     @IBAction func photoLibrary(_ sender: Any) {
         let picker = UIImagePickerController()
